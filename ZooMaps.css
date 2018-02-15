@@ -1,6 +1,7 @@
 html {
   position: relative;
   min-height: 100%;
+  background-color: #474e5d;
 }
 
 body {
@@ -34,7 +35,7 @@ body {
 	color: #555555;
 	padding-top: 30px;
     padding-bottom: 30px;
-   	height: 70px;
+   	/*height: 70px;*/
 }
   
 .container-fluid { 
