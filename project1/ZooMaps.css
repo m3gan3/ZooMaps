@@ -14,6 +14,14 @@ body {
 	padding-bottom: 70px;
 }
 
+.main {
+	font-size: 30px;
+}
+
+dt{
+	padding-top:30px;
+}
+
 .bg-1 { 
     background-color: #1abc9c; /* Green */
 	color: #ffffff;
@@ -42,6 +50,11 @@ body {
 	padding-left: 30px;
     padding-right: 30px;
 }
+
+.logged { 
+	padding-left: 30px;
+    padding-right: 30px;
+}
   
 .footer {
   position: absolute;
@@ -58,4 +71,10 @@ body {
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.right{
+	height: 320px;
+	position: fixed;
+	overflow-y: auto;
 }
