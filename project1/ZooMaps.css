@@ -87,6 +87,15 @@ dt{
 	font-size:50px;
 }
 
+.form input{
+	color:black;
+	margin:10px;
+}
+
+.form p{
+	margin:10px;
+}
+
 .searchbar {
     padding: 6px;
     border: none;
