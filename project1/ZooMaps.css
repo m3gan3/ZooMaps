@@ -59,9 +59,6 @@ dt{
 .footer {
   position: absolute;
   bottom: 0;
-  width: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
   /* Set the fixed height of the footer here */
   height: 50px;
   padding-right: 15px;
@@ -84,7 +81,7 @@ dt{
 }
 
 .title{
-	font-size:50px;
+	font-size:45px;
 }
 
 .form input{
@@ -101,4 +98,8 @@ dt{
     border: none;
     margin-bottom: 20px;
     font-size: 15px;
+}
+
+.dropdown {
+    padding:10px;
 }
