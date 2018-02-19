@@ -34,30 +34,48 @@
   	</header>
   	
   	<div class="row container-fluid bg-2">
-  		<div class="col-md-9 form">
-  			<form action="ZooMapsForm.html">
-  				First name:<br>
-  				<input type="text" name="firstname" value="First Name"><br>
-  				Last name:<br>
-  				<input type="text" name="lastname" value="Last Name"><br>
-  				Event: 
-  				<input type="radio" name="private" value="private" checked> Private
-  				<input type="radio" name="private" value="public"> Public <br>
-  				Location:<br>
-  				<select name="nom" size="1">
-					<option>Blue Whale
-					<option>Coffee Place
-					<option>UMass Pub
-					<option>Cafeteria
-					<option>Dining Room
-				</select><br>
-  				Description of the event:<br>
-  				<input type="text" name="description" value="Tell us more.."><br>
-  				Invite co-hosts:<br>
-  				<input type="text" name="description" value=""><br>
-  				<br><input type="submit" value="Submit">
-			</form> 
-  		</div>
+			<form class="col-md-9 form" action="ZooMapsForm.html">
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<label for="firstname">First name:</label><br />
+						<input type="text" name="firstname" placeholder="First Name">
+					</div>
+					<div class="col-md-6">
+						<label for="lastname">Last name:</label><br />
+						<input type="text" name="lastname" placeholder="Last Name">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<label for="privacy">Event Privacy:</label><br />
+						<select name="privacy" size="1">
+							<option>Private</option>
+							<option>Public</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label for="nom">Location:</label><br>
+						<select name="nom" size="1">
+							<option>Blue Whale</option>
+							<option>Coffee Place</option>
+							<option>UMass Pub</option>
+							<option>Cafeteria</option>
+							<option>Dining Room</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<label for="description">Description of the event:</label><br />
+					<textarea placeholder="Tell us more.." name="description"></textarea>
+				</div>
+				<div>
+					<label for="cohosts">Invite co-hosts:</label><br>
+					<input type="text" name="cohosts" placeholder="Invite co-hosts...">
+				</div>
+				<div>
+					<input type="submit" value="Submit">
+				</div>
+		</form> 
   		<div class="col-md-3 instructions">
   			<p>Instructions on how to create your event:</p>
   			<ol>
