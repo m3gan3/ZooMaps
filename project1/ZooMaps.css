@@ -33,14 +33,14 @@ dt{
   
 .bg-2 { 
     background-color: #f5f5f5; /* Dark grey */
-	color: #ffffff;
+	color: black /* #ffffff; white*/
 	padding-top: 70px;
     padding-bottom: 70px;
 }
 
 .bg-3 { 
 	background-color: #474e5d;
-	color: #ffffff;
+	color: black /* #ffffff; white*/
 	padding-top: 30px;
     padding-bottom: 30px;
    	/*height: 70px;*/
