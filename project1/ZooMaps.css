@@ -132,9 +132,11 @@ dt{
 	font-size:45px;
 }
 
-.form input{
-	color:black;
-	margin:10px;
+.form input, .form textarea, .form select {
+  display: block;
+  width: 100%;
+  color:black;
+  margin:10px;
 }
 
 .form p{
