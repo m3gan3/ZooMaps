@@ -45,6 +45,14 @@ body {
 	padding-left:50px;
 }
 
+.account_title {
+	font-size: 40px;
+}
+
+.account {
+	font-size: 20px;
+}
+
 dt{
 	padding-top:30px;
 }
@@ -134,9 +142,12 @@ dt{
 
 .form input, .form textarea, .form select {
   display: block;
-  width: 100%;
   color:black;
   margin:10px;
+}
+
+.form textarea {
+  width:100%;
 }
 
 .form p{
