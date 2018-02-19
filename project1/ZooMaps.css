@@ -1,3 +1,28 @@
+
+/* Fonts taken from Google - https://fonts.google.com */
+/* Fonts bulletproofed on Font Squirrel - https://www.fontsquirrel.com/tools/webfont-generator, on Feb. 19th */
+@font-face {
+    font-family: 'comfortaabold';
+    src: url('font_body/comfortaa-bold-webfont.woff2') format('woff2'),
+         url('font_body/comfortaa-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'comfortaaregular';
+    src: url('font_body/comfortaa-regular-webfont.woff2') format('woff2'),
+         url('font_body/comfortaa-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'comfortaalight';
+    src: url('font_body/comfortaa-light-webfont.woff2') format('woff2'),
+         url('font_body/comfortaa-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -5,6 +30,7 @@ html {
 }
 
 body {
+	font-family:"comfortaaregular";
 	background-color: #474e5d; /* Dark grey */
 	color: #ffffff;
 	font-size: 10px;
