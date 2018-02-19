@@ -49,6 +49,7 @@ dt{
 }
 
 .bg-1 { 
+	font-family:"comfortaaregular";
     background-color: #A52A2A; /* #8B0000; darker red #c0392b; Darkish red #1abc9c; Green */
 	color: #ffffff;
  	padding-top: 20px;
@@ -58,6 +59,7 @@ dt{
 }
   
 .bg-2 { 
+	font-family:"comfortaaregular";
     background-color: #f5f5f5; /* Dark grey */
 	color: black; /* #ffffff; white*/
 	padding-top: 70px;
@@ -65,6 +67,7 @@ dt{
 }
 
 .bg-3 { 
+	font-family:"comfortaaregular";
 	background-color: #474e5d;
 	color: black; /* #ffffff; white*/
 	padding-top: 30px;
@@ -107,6 +110,7 @@ dt{
 }
 
 .title{
+	font-family: 'comfortaabold';
 	font-size:45px;
 }
 
