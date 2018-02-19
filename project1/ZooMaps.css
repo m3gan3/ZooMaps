@@ -42,6 +42,7 @@ body {
 
 .main {
 	font-size: 30px;
+	padding-left:50px;
 }
 
 dt{
@@ -116,7 +117,7 @@ dt{
 }
 
 .right{
-	height: 320px;
+	height: 400px;
 	position: fixed;
 	overflow-y: auto;
 }
@@ -150,6 +151,24 @@ dt{
 	list-style-type: upper-roman;
 }
 
+ul.eventsList{ 
+ 	padding-bottom:30px;
+}
+
+ul.eventsList li{ 
+ 	list-style-type: square;
+    padding-top:15px;
+}
+
+.hours li{ 
+    padding-top:15px;
+	list-style-type: none;
+}
+
+.eventInfo li{ 
+    padding-top:15px;
+	list-style-type: none;
+}
 
 .searchbar {
     padding: 6px;
