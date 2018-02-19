@@ -23,7 +23,7 @@ dt{
 }
 
 .bg-1 { 
-    background-color: #1abc9c; /* Green */
+    background-color: #A52A2A; /* #8B0000; darker red #c0392b; Darkish red #1abc9c; Green */
 	color: #ffffff;
  	padding-top: 20px;
     padding-bottom: 20px;
@@ -32,14 +32,14 @@ dt{
 }
   
 .bg-2 { 
-    background-color: #474e5d; /* Dark grey */
+    background-color: #f5f5f5; /* Dark grey */
 	color: #ffffff;
 	padding-top: 70px;
     padding-bottom: 70px;
 }
 
 .bg-3 { 
-	background-color: #f5f5f5;
+	background-color: #474e5d;
 	color: #ffffff;
 	padding-top: 30px;
     padding-bottom: 30px;
