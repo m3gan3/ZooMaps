@@ -42,7 +42,7 @@ body {
 
 .main {
 	font-size: 30px;
-	padding-left:50px;
+	margin-left:50px;
 }
 
 .account_title {
@@ -142,7 +142,12 @@ dt{
 .form input, .form textarea, .form select {
   display: block;
   color:black;
-  margin:10px;
+  margin:10px 0px;
+}
+
+.form .col-md-6 {
+
+  margin:0px;
 }
 
 .form textarea {
