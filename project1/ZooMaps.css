@@ -123,6 +123,18 @@ dt{
 	margin:10px;
 }
 
+.instructions{
+	border-left:solid 1px black;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+.instructions li{
+	padding-top:10px;
+	list-style-type: upper-roman;
+}
+
+
 .searchbar {
     padding: 6px;
     border: none;
