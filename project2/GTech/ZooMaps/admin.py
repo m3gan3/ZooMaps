@@ -2,7 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import User, Place, Event
+from .models import User, Event, Tag, CommentEvent, Message
 admin.site.register(User)
-admin.site.register(Place)
 admin.site.register(Event)
+admin.site.register(Tag)
+admin.site.register(CommentEvent)
+admin.site.register(Message)
