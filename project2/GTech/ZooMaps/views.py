@@ -25,6 +25,8 @@ from django.views import generic
 
 class AccountListView(generic.ListView):
     model = User
+    def get_queryset(self):
+        return User.objects.filter(username='GTech') # Get the account of GTech
     
 class EventListView(generic.ListView):
     model = Event
