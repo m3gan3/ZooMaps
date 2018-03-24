@@ -1,0 +1,78 @@
+{% extends "base_generic.html" %}
+  	
+  	{% block main %}
+  		<div class="container-fluid bg-2">
+			<form class="col-md-9 form" action="ZooMapsForm.html">
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<label>First name:</label><br />
+						<input type="text" name="firstname" placeholder="First Name">
+					</div>
+					<div class="col-md-6">
+						<label>Last name:</label><br />
+						<input type="text" name="lastname" placeholder="Last Name">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<label>Event Privacy:</label><br/>
+						<select name="privacy" size="1">
+							<option>Private</option>
+							<option>Public</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label>Location:</label><br>
+						<select name="nom" size="1">
+							<option>Blue Whale</option>
+							<option>Coffee Place</option>
+							<option>UMass Pub</option>
+							<option>Cafeteria</option>
+							<option>Dining Room</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<label>Begin time:</label><br />
+						<input type="text" name="begintime" placeholder="Begin at">
+					</div>
+					<div class="col-md-6">
+						<label>End time:</label><br />
+						<input type="text" name="endtime" placeholder="End at">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<label>Date:</label><br />
+						<input type="text" name="date" placeholder="On">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<label>Description of the event:</label><br />
+					<textarea placeholder="Tell us more.." name="description"></textarea>
+				</div>
+				<div class="col-md-12">
+					<label>Invite co-hosts:</label><br>
+					<input type="text" name="cohosts" placeholder="Invite co-hosts...">
+				</div>
+				<div class="col-md-12">
+					<input type="submit" class="btn-sm" value="Submit">
+				</div>
+		</form> 
+  	{% endblock %}
+  	
+  	{% block rightbar %}
+  		<div class="col-md-3 instructions">
+  			<p>Instructions on how to create your event:</p>
+  			<ol>
+  				<li>Tell us who you are</li>
+  				<li>Decide whether you want the event to be private or public</li>
+  				<li>Choose where and when the even will be happening</li>
+  				<li>Describe the event so that people can know what is going on</li>
+  				<li>Invite co-hosts</li>
+  				<li>Submit and wait to get  your approval email</li>
+  				<li>Once the email received, your event will be published for others to see</li>
+  			</ol>
+  		</div>
+  	{% endblock %}

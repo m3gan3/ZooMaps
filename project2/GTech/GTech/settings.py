@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ZooMaps.apps.ZoomapsConfig', 
+    
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    
+    'ZooMaps.apps.ZoomapsConfig',
 ]
 
 MIDDLEWARE = [
