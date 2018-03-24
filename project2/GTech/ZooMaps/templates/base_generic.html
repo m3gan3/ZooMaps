@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block title %}<title>ZooMaps</title>{% endblock %}
-    <!-- Add additional CSS in static file -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	{% load static %}
+	<!-- Add additional CSS in static file -->
+  	{% load static %}
   	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
   </head>
   
@@ -18,8 +18,8 @@
   	<div class="container-fluid bg-1">
   		<div class="col-md-3 title">ZooMaps</div>
   		<div class="col-md-2" id="nav-selected"><a href="{% url 'index' %}">About Us</a></div>
-  		<div class="col-md-2" id="nav-item"><a href="">Maps</a></div>
-  		<div class="col-md-2" id="nav-item"><a href="">My Account</a></div>
+  		<div class="col-md-2" id="nav-item"><a href="{% url 'events' %}">Maps</a></div>
+  		<div class="col-md-2" id="nav-item"><a href="{% url 'account' %}">My Account</a></div>
   		<div class="col-md-2" id="nav-item"><a href="">Forms</a></div>
   		<div class="col-md-1 pull-right">
   			<div class="dropdown">

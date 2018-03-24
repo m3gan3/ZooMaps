@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Event: {{ event.name }}</h1>
+
+  <p><strong>Starts:</strong>{{ event.startDate }}</p>
+  <p><strong>Ends:</strong> {{ event.endDate }}</p>
+  <p><strong>Description:</strong> {{ event.description }}</p>  
+  <p><strong>Tags:</strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+
+{% endblock %}

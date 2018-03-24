@@ -20,3 +20,14 @@ def index(request):
         'index.html',
         context={'num_user':num_user,'num_event':num_event,'num_tag':num_tag,'num_comment':num_comment},
     )
+    
+from django.views import generic
+
+class AccountListView(generic.ListView):
+    model = User
+    
+class EventListView(generic.ListView):
+    model = Event
+    
+class EventDetailView(generic.DetailView):
+    model = Event

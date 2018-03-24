@@ -1,0 +1,37 @@
+{% extends "base_generic.html" %}
+	{% block leftbar %}	
+  		<div class="col-md-3">
+  			<form >
+  				<input class="searchbar" type="text" placeholder="Search">
+  				<button type="button" onclick="window.location='ZooMapsCafe.html'" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
+      </form>
+  			<p class=""><a href="#">My recent searches</a></p>
+  			<p class=""><a href="#">Filters</a></p>
+  			<p class="">&emsp;&emsp;<a href="#">Open right now</a></p>
+  			<p class="">&emsp;&emsp;<a href="#">Ongoing events</a></p>
+  			<p class="">&emsp;&emsp;<a href="#">Best rated</a></p>
+  			<p class="">&emsp;&emsp;<a href="#">More filters...</a></p>
+  			
+  			{% if event_list %}
+    				<ul>
+
+      					{% for event in event_list %}
+      					<li>
+        					<a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
+      					</li>
+      					{% endfor %}
+
+    				</ul>
+    			{% else %}
+      				<p>There are no events yet.</p>
+    			{% endif %}
+  			
+  		</div>
+  	{% endblock %}
+  	{% block main %}	
+  		<div class="col-md-8 text-center">
+  		{% load static %}
+		<img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/>
+  		</div>
+  		<div class="col-md-1"></div>
+  	{% endblock %}
