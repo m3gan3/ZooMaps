@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template import RequestContext
 
 # Create your views here.
 
@@ -31,6 +32,15 @@ class AccountListView(generic.ListView):
 class EventListView(generic.ListView):
     model = Event
     paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', None)
+        if query:
+            context['event_list'] = Event.objects.filter(name__contains=query)
+        else:
+            context['event_list'] = Event.objects.all()
+        return context
     
 class EventDetailView(generic.DetailView):
     model = Event
