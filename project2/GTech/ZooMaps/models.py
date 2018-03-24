@@ -35,7 +35,7 @@ class Event(models.Model):
     """
     A typical class defining a model, derived from the Model class.
     """
-
+    
     # Fields
     name = models.CharField(max_length=20, help_text="Enter the name of the Event")
     startDate = models.DateTimeField(blank=True, null=True)  
@@ -45,7 +45,7 @@ class Event(models.Model):
     latitue = models.FloatField();
     longitude = models.FloatField();
     tags = models.ManyToManyField(Tag, help_text='Select your favorite tags for the Event')
-    attendees = models.ManyToManyField(User, help_text='Users going to your Event', blank=True, null=True)
+    attendees = models.ManyToManyField(User, help_text='Users going to your Event')
    	
     def __str__(self):
         """
@@ -74,7 +74,7 @@ class CommentEvent(models.Model):
         """
         String for representing the MyModelName object (in Admin site etc.)
         """
-        return self.comment
+        return self.event.name
         
 class MessageEvent(models.Model):
     """
@@ -84,11 +84,11 @@ class MessageEvent(models.Model):
     # Fields
     username = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
     event = models.ForeignKey('Event', on_delete=models.SET_NULL, null=True)
-    #rating = models.IntegerField(default=0,validators=[MaxValueValidator(1), MinValueValidator(-1)])
+    object = models.CharField(max_length=20, help_text='Enter the object of your message')
     comment = models.TextField(max_length=1000, help_text='Enter a brief message for the otehr users interested in the event')
    	
     def __str__(self):
         """
         String for representing the MyModelName object (in Admin site etc.)
         """
-        return self.comment
+        return self.event.name

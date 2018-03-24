@@ -3,7 +3,7 @@ from django.template import RequestContext
 
 # Create your views here.
 
-from .models import User, Event, Tag, CommentEvent
+from .models import User, Event, Tag, CommentEvent, MessageEvent
 
 def index(request):
     """
@@ -26,6 +26,8 @@ from django.views import generic
 
 class AccountListView(generic.ListView):
     model = User
+    def get_queryset(self):
+        return User.objects.filter(username='GTech') # Get the account of GTech
     
 class EventListView(generic.ListView):
     model = Event
