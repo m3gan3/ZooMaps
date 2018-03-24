@@ -16,14 +16,14 @@
   	<header>
   	{% block navbar %}
   	<div class="container-fluid bg-1">
-  		<div class="col-md-3 title">ZooMaps</div>
-  		<div class="col-md-2" id="{% if '/ZooMaps/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'index' %}">About Us</a></div>
-  		<div class="col-md-2" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Maps</a></div>
-  		<div class="col-md-2" id="{% if '/ZooMaps/account/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'account' %}">My Account</a></div>
-  		<div class="col-md-2" id="{% if '/ZooMaps/forms/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="">Forms</a></div>
-  		<div class="col-md-1 pull-right">
+  		<div class="col-md-3 title" id="title">ZooMaps</div>
+  		<div class="col-md-1" id="{% if '/ZooMaps/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'index' %}">About</a></div>
+  		<div class="col-md-1" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Maps</a></div>
+  		<div class="col-md-1" id="{% if '/ZooMaps/account/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'account' %}">Account</a></div>
+  		<div class="col-md-1" id="{% if '/ZooMaps/forms/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="">Forms</a></div>
+  		<div class="col-md-1" id="login-dropdown">
   			<div class="dropdown">
-  				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  				<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     				Log in
   				</button>
   				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -48,7 +48,7 @@
   	<footer class="footer">
   		{% block footer %}
   		<nav  class="navbar-fixed-bottom footer bg-3">
-  			<div class="col-md-4"><a href="#">&copy;ZooMaps</a></div>
+  			<div class="col-md-4"><a href="{% url 'index' %}">&copy;ZooMaps</a></div>
   			<div class="col-md-4"><a href="#">Policies</a></div>
   			<div class="col-md-4"><a href="#">Contact us</a></div>
   		</nav>

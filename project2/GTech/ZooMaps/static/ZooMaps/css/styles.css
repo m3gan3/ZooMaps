@@ -57,21 +57,29 @@ dt{
 	padding-top:30px;
 }
 
+.title{
+	margin: 35px 10px 30px 2px;
+	font-family: 'comfortaabold';
+	font-size:45px;
+	text-align: center;
+}
+
 #nav-item {
-	margin-top: 27px;
+	margin: 40px 15px 0px 15px;
     font-size: 18px;
 	text-align: center;
 }
 
 #nav-selected {
-	margin-top: 25px;
+	margin: 40px 15px 0px 15px;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
 }
 
-.col-md-2 {
-	padding-right: 0.2px;
+#login-dropdown {
+	margin: 30px 15px 0px 15px;
+	text-align: center;
 }
 
 .bg-1 { 
@@ -135,11 +143,6 @@ dt{
 	width: 100%;
 }
 
-.title{
-	font-family: 'comfortaabold';
-	font-size:45px;
-}
-
 .form input, .form textarea, .form select {
   display: block;
   color:black;
@@ -194,8 +197,4 @@ ul.eventsList li{
     border: none;
     margin-bottom: 20px;
     font-size: 15px;
-}
-
-.dropdown {
-    padding-top: 20px;
 }
