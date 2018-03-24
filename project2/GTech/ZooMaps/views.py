@@ -28,6 +28,7 @@ class AccountListView(generic.ListView):
     
 class EventListView(generic.ListView):
     model = Event
+    paginate_by = 3
     
 class EventDetailView(generic.DetailView):
     model = Event
