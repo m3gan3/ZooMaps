@@ -35,7 +35,7 @@ class Event(models.Model):
     """
     A typical class defining a model, derived from the Model class.
     """
-
+    
     # Fields
     name = models.CharField(max_length=20, help_text="Enter the name of the Event")
     startDate = models.DateTimeField(blank=True, null=True)  
