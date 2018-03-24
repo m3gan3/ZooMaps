@@ -1,9 +1,9 @@
 {% extends "base_generic.html" %}
 	{% block leftbar %}	
   		<div class="col-md-3">
-  			<form >
-  				<input class="searchbar" type="text" placeholder="Search">
-  				<button type="button" onclick="window.location='ZooMapsCafe.html'" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
+  			<form>
+  				<input class="searchbar" type="text" placeholder="Search" name="q" value="{{ request.GET.q }}">
+  				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
       </form>
   			<p class=""><a href="#">My recent searches</a></p>
   			<p class=""><a href="#">Filters</a></p>
