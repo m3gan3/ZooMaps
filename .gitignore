@@ -2,6 +2,7 @@
 
 
 # Byte-compiled / optimized / DLL files
+**__pycache__/
 *.py[cod]
 *$py.class
 **.pyc
@@ -107,3 +108,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Django migrations files and database files
+**/migrations/__pycache__/*.py
+**/migrations/**.py
+**/db.sqlite3
