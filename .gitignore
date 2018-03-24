@@ -5,7 +5,7 @@
 *.py[cod]
 *$py.class
 **.pyc
-*.pyo
+**.pyo
 
 # C extensions
 *.so
