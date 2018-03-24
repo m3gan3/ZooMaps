@@ -37,7 +37,6 @@ body {
   	line-height: 15px;
   	letter-spacing: 1px;
 	word-spacing: 1.5px;
-	padding-bottom: 50px;
 }
 
 .main {
@@ -120,12 +119,14 @@ dt{
 }
   
 .footer {
-  position: absolute;
   bottom: 0;
   /* Set the fixed height of the footer here */
-  height: 50px;
-  padding-right: 15px;
-  padding-left: 15px;
+  text-align: center;
+}
+
+.footer a {
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .footer > .container {
@@ -197,4 +198,10 @@ ul.eventsList li{
     border: none;
     margin-bottom: 20px;
     font-size: 15px;
+}
+
+.navbar-2 {
+  position: relative;
+  min-height: 20px;
+  border: 1px solid transparent;
 }
