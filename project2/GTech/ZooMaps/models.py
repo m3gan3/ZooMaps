@@ -53,6 +53,12 @@ class Event(models.Model):
         """
         return self.name
         
+    def get_absolute_url(self):
+        """
+        Returns the url to access a detail record for this book.
+        """
+        return reverse('event-detail', args=[str(self.id)])
+        
 class CommentEvent(models.Model):
     """
     A typical class defining a model, derived from the Model class.
