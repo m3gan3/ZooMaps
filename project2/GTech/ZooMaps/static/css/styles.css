@@ -1,0 +1,201 @@
+
+/* Fonts taken from Google - https://fonts.google.com */
+/* Fonts bulletproofed on Font Squirrel - https://www.fontsquirrel.com/tools/webfont-generator, on Feb. 19th */
+@font-face {
+    font-family: 'comfortaabold';
+    src: url('font_body/comfortaa-bold-webfont.woff2') format('woff2'),
+         url('font_body/comfortaa-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'comfortaaregular';
+    src: url('font_body/comfortaa-regular-webfont.woff2') format('woff2'),
+         url('font_body/comfortaa-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'comfortaalight';
+    src: url('font_body/comfortaa-light-webfont.woff2') format('woff2'),
+         url('font_body/comfortaa-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  background-color: #474e5d;
+}
+
+body {
+	font-family:"comfortaaregular";
+	background-color: #474e5d; /* Dark grey */
+	color: #ffffff;
+	font-size: 10px;
+  	line-height: 15px;
+  	letter-spacing: 1px;
+	word-spacing: 1.5px;
+	padding-bottom: 50px;
+}
+
+.main {
+	font-size: 30px;
+	margin-left:40px;
+}
+
+.account_title {
+	font-size: 40px;
+}
+
+.account {
+	font-size: 20px;
+}
+
+dt{
+	padding-top:30px;
+}
+
+#nav-item {
+	margin-top: 27px;
+    font-size: 18px;
+	text-align: center;
+}
+
+#nav-selected {
+	margin-top: 25px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.col-md-2 {
+	padding-right: 0.2px;
+}
+
+.bg-1 { 
+	font-family:"comfortaaregular";
+    background-color: #A52A2A; /* #8B0000; darker red #c0392b; Darkish red #1abc9c; Green */
+	color: #ffffff;
+ 	padding-top: 10px;
+    padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+  
+.bg-2 { 
+	font-family:"comfortaaregular";
+    background-color: #f5f5f5; /* Dark grey */
+	color: black; /* #ffffff; white*/
+	padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.bg-3 { 
+	font-family:"comfortaaregular";
+	background-color: #474e5d;
+	color: black; /* #ffffff; white*/
+	padding-top: 30px;
+    padding-bottom: 30px;
+   	/*height: 70px;*/
+}
+  
+.container-fluid { 
+	padding-left: 30px;
+    padding-right: 30px;
+}
+
+.logged { 
+	padding-left: 30px;
+    padding-right: 30px;
+}
+  
+.footer {
+  position: absolute;
+  bottom: 0;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.right{
+	height: 400px;
+	position: fixed;
+	overflow-y: auto;
+}
+
+.map{
+	width: 100%;
+}
+
+.title{
+	font-family: 'comfortaabold';
+	font-size:45px;
+}
+
+.form input, .form textarea, .form select {
+  display: block;
+  color:black;
+  margin:10px 0px;
+}
+
+.form .col-md-6 {
+
+  padding:0px;
+}
+
+.form textarea {
+  width:100%;
+}
+
+.form p{
+	margin:10px;
+}
+
+.instructions{
+	border-left:solid 1px black;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+.instructions li{
+	padding-top:10px;
+	list-style-type: upper-roman;
+}
+
+ul.eventsList{ 
+ 	padding-bottom:30px;
+}
+
+ul.eventsList li{ 
+ 	list-style-type: square;
+    padding-top:15px;
+}
+
+.hours li{ 
+    padding-top:15px;
+	list-style-type: none;
+}
+
+.eventInfo li{ 
+    padding-top:15px;
+	list-style-type: none;
+}
+
+.searchbar {
+    padding: 6px;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.dropdown {
+    padding-top: 20px;
+}
