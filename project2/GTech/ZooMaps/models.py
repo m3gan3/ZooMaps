@@ -74,7 +74,7 @@ class CommentEvent(models.Model):
         """
         String for representing the MyModelName object (in Admin site etc.)
         """
-        return self.comment
+        return self.event.name 
         
 class MessageEvent(models.Model):
     """
