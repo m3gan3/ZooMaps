@@ -12,16 +12,18 @@
   	{% block main %}
   		<div class="col-md-6 main account">
 
-    			{% if user_list %}
-    				<p class="account_title">Welcome G-Tech</p>
+    			{% if object_list %}
     				<ul>
-
-      					{% for user in user_list %}
+						
+      					{% for object in object_list %}
+      						{% if object.username %}
+      					<p class="account_title">Welcome {{object.username}}</p>
       					<li>
-        					Your username: {{ user.username }}
+        					Your username: {{ object.username }}
         					<br>
-        					Your email.address: {{user.emailAddress}}	
+        					Your email.address: {{object.emailAddress}}	
       					</li>
+      					{% endif %}
       					{% endfor %}
 
     				</ul>
@@ -34,6 +36,21 @@
   	{% block rightbar %}
   		<div class="col-md-2">
   			<p> Your upcoming events </p>
+  			{% if object_list %}
+    				<ul>
+						
+      					{% for object in object_list %}
+      						{% if object.name %}
+      					<li>
+        					Your event: {{ object.name }}
+      					</li>
+      					{% endif %}
+      					{% endfor %}
+
+    				</ul>
+    			{% else %}
+      				<p>There are no user in the website yet.</p>
+    			{% endif %}
   			<ul>
   				
   			</ul>

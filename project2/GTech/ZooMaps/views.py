@@ -23,12 +23,16 @@ def index(request):
     )
     
 from django.views import generic
+from itertools import chain
 
 class AccountListView(generic.ListView):
     model = User
+    template_name = 'ZooMaps/user_list.html'
     def get_queryset(self):
-        return User.objects.filter(username='GTech') # Get the account of GTech
-    
+        #return User.objects.filter(username='GTech') # Get the account of GTech
+        #Event.objects.filter(attendees__in = User.objects.filter(username='GTech'))
+    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'))))
+    	
 class EventListView(generic.ListView):
     model = Event
     paginate_by = 3
