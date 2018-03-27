@@ -34,13 +34,13 @@ body {
 	background-color: #474e5d; /* Dark grey */
 	color: #ffffff;
 	font-size: 10px;
-  	line-height: 15px;
+  	line-height: 30px;
   	letter-spacing: 1px;
 	word-spacing: 1.5px;
 }
 
 .main {
-	font-size: 30px;
+	font-size: 20px;
 	margin-left:40px;
 }
 
