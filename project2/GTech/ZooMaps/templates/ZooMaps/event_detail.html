@@ -7,5 +7,23 @@
   <p><strong>Ends: </strong> {{ event.endDate }}</p>
   <p><strong>Description: </strong> {{ event.description }}</p>  
   <p><strong>Tags: </strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
+  <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p> 
+  
+{% endblock %}
 
+{% block rightbar %}
+	<h1>Ratings for {{ object.name }}</h1>
+	<ul>
+	{% for rating in rating_list %}
+		<li>{{ rating.rating }} by {{ rating.username.username }}</li>
+	{% endfor %}
+	</ul>
+	
+	
+	<h1>Messages for {{ object.name }}</h1>
+	<ul>
+	{% for message in message_list %}
+		<li>{{ message.object }} by {{ message.username.username }}</li>
+	{% endfor %}
+	</ul>
 {% endblock %}

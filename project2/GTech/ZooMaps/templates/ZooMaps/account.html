@@ -1,7 +1,6 @@
 {% extends "base_generic.html" %}
   	{% block leftbar %}	
   		<div class="col-md-3">
-  			<p><a href="ZooMapsMyAccount.html">G-Tech</a></p>
   			<p class="logged"><a href="#">My future events</a></p>
   			<p class="logged"><a href="#">My past events</a></p>
   			<p class="logged"><a href="#">My favorite spots</a></p>
@@ -12,26 +11,48 @@
   	
   	{% block main %}
   		<div class="col-md-6 main account">
-  			<p class="account_title">Welcome G-Tech</p>
-  			<p>You have one upcoming event : </p>
-  			<p>&emsp;&emsp;<a href="ZooMapsEvent.html">Chess &amp; Coffee</a>, on Monday, 7PM to 9PM</p>
-  			<p>&emsp;</p>
-  			<p> Starred places </p>
-  			<ul>
-  				<li><a href="ZooMapsCafe.html">Cafe</a></li>
-  				<li><a href="#">Blue Whale</a></li>
-  				<li><a href="#">Dining room</a></li>
-  			</ul>
+
+    			{% if object_list %}
+    				<ul>
+						
+      					{% for object in object_list %}
+      						{% if object.username %}
+      					<p class="account_title">Welcome {{object.username}}</p>
+      					<li>
+        					Your username: {{ object.username }}
+        					<br>
+        					Your email.address: {{object.emailAddress}}	
+      					</li>
+      					{% endif %}
+      					{% endfor %}
+
+    				</ul>
+    			{% else %}
+      				<p>There are no user in the website yet.</p>
+    			{% endif %} 
   		</div>
   	{% endblock %}
   	
   	{% block rightbar %}
   		<div class="col-md-2">
   			<p> Your upcoming events </p>
-  			<ul>
-  				<li><a href="ZooMapsEvent.html">Chess &amp; Coffee, on Monday</a></li>
-  				<li><a href="#">DIY</a></li>
-  				<li><a href="#">Hot chocolate night</a></li>
-  			</ul>
+  			{% if object_list|length == 1 %}
+  			  			<p> You have nothing coming up </p>
+  			  		{% else %}
+  			  		{% with object_list|slice:"1:" as object_list2 %}
+    				<ul>
+      					{% for object in object_list2 %}
+      						
+      						{% if object.name %}
+      					<li>
+        					Up next: <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+      					</li>
+      					{% endif %}
+      					{% endfor %}
+
+    				</ul>
+    				{% endwith %}
+    			{% endif %}
   		</div>
+  		
   	{% endblock %}

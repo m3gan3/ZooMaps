@@ -27,14 +27,13 @@ from itertools import chain
 
 class AccountListView(generic.ListView):
     model = User
-    template_name = 'ZooMaps/user_list.html'
+    template_name = 'ZooMaps/account.html'
     def get_queryset(self):
         return list(chain(User.objects.filter(username='FunGuy01'), Event.objects.filter(attendees__in = User.objects.filter(username='FunGuy01'))))
     	
 class EventListView(generic.ListView):
     model = Event
     paginate_by = 3
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q', None)
@@ -45,4 +44,10 @@ class EventListView(generic.ListView):
         return context
     
 class EventDetailView(generic.DetailView):
-    model = Event
+	model = Event
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['event'] = self.object
+		context['rating_list'] = CommentEvent.objects.filter(event=self.object)
+		context['message_list'] = MessageEvent.objects.filter(event=self.object)
+		return context
