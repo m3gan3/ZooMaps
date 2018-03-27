@@ -29,9 +29,7 @@ class AccountListView(generic.ListView):
     model = User
     template_name = 'ZooMaps/user_list.html'
     def get_queryset(self):
-        #return User.objects.filter(username='GTech') # Get the account of GTech
-        #Event.objects.filter(attendees__in = User.objects.filter(username='GTech'))
-    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'))))
+        return list(chain(User.objects.filter(username='FunGuy01'), Event.objects.filter(attendees__in = User.objects.filter(username='FunGuy01'))))
     	
 class EventListView(generic.ListView):
     model = Event
@@ -48,6 +46,3 @@ class EventListView(generic.ListView):
     
 class EventDetailView(generic.DetailView):
     model = Event
-    
-class flatpage(generic.DetailView):
-	pass

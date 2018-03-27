@@ -36,23 +36,21 @@
   	{% block rightbar %}
   		<div class="col-md-2">
   			<p> Your upcoming events </p>
-  			{% if object_list %}
+  			{% if object_list|length == 1 %}
+  			  			<p> You have nothing coming up </p>
+  			  		{% else %}
     				<ul>
-						
       					{% for object in object_list %}
+      						
       						{% if object.name %}
       					<li>
-        					Your event: {{ object.name }}
+        					Your event: <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
       					</li>
       					{% endif %}
       					{% endfor %}
 
     				</ul>
-    			{% else %}
-      				<p>There are no user in the website yet.</p>
     			{% endif %}
-  			<ul>
-  				
-  			</ul>
   		</div>
+  		
   	{% endblock %}
