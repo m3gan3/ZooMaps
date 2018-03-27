@@ -1,64 +1,78 @@
 {% extends "base_generic.html" %}
   	
   	{% block main %}
-  		<div class="container-fluid bg-2">
-			<form class="col-md-9 form" action="ZooMapsForm.html">
-				<div class="col-md-12">
-					<div class="col-md-6">
-						<label>Username:</label><br />
-						<input type="text" name="username" placeholder="username">
-					</div>
-					<div class="col-md-6">
-						<label>Name of the event:</label><br />
-						<input type="text" name="eventName" placeholder="name of the event">
-					</div>
+		<form class="col-md-9 form" action="ZooMapsForm.html">
+			<div class="col-md-12">
+				<div class="col-md-6">
+					<h1>Create an Event</h1>
 				</div>
-				<div class="col-md-12">
-					<div class="col-md-6">
-						<label>Emojis used to pin the event to the map:</label><br />
-						<input type="text" name="emojis" placeholder="emojis">
-					</div>
-					<div class="col-md-6">
-						<label>Tags associated with the events:</label><br />
-						<input type="text" name="tags" placeholder="tags">
-					</div>
+			</div>
+			</br>
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<label>Username:</label><br />
+					<input type="text" name="username" placeholder="your username">
 				</div>
-				<div class="col-md-12">
-					<div class="col-md-6">
-						<label>Start date and time:</label><br />
-						<input type="text" name="begintime" placeholder="Begin at">
-					</div>
-					<div class="col-md-6">
-						<label>End date and time:</label><br />
-						<input type="text" name="endtime" placeholder="End at">
-					</div>
+				<div class="col-md-3">
+					<label>Name of the Event:</label><br />
+					<input type="text" name="eventName" placeholder="your name">
 				</div>
-				<div class="col-md-12">
-					<div class="col-md-6">
-						<label>Latitude:</label><br />
-						<input type="text" name="latitude" placeholder="latitude">
-					</div>
-					<div class="col-md-6">
-						<label>Longitude:</label><br />
-						<input type="text" name="longitude" placeholder="longitude">
-					</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<label>Emoji (Pin Style):</label><br />
+					<input type="text" name="emojis" placeholder="emoji to represent event">
 				</div>
-				<div class="col-md-12">
-					<label>Description of the event:</label><br />
-					<textarea placeholder="Tell us more.." name="description"></textarea>
+				<div class="col-md-3">
+					<label>Tags:</label><br />
+					<input type="text" name="tags" placeholder="tags related to event">
 				</div>
-				<div class="col-md-12">
-					<label>Invite participants:</label><br>
-					<input type="text" name="participants" placeholder="Invite participants...">
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<label>Start Time:</label><br />
+					<input type="text" name="begintime" placeholder="dd/mm/yyyy hh:mm:ss">
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-3">
+					<label>End Time:</label><br />
+					<input type="text" name="endtime" placeholder="dd/mm/yyyy hh:mm:ss">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<label>Latitude:</label><br />
+					<input type="text" name="latitude" placeholder="latitude">
+				</div>
+				<div class="col-md-3">
+					<label>Longitude:</label><br />
+					<input type="text" name="longitude" placeholder="longitude">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5">
+					<label>Description:</label><br />
+					<textarea rows="5" cols="110" placeholder="Tell us more about your event, provide as many details as possible!" name="description"></textarea>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5">
+					<label>Invite Participants:</label><br>
+					<input type="text" name="participants" placeholder="List the username of users that may be interested in this event, comma separated.">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5">
 					<input type="submit" class="btn-sm" value="Submit">
 				</div>
-			</form> 
-		</div>
+			</div>
+		</form> 
   	{% endblock %}
   	
   	{% block rightbar %}
+		</br>
+		</br>
+		</br>
+		</br>
   		<div class="col-md-3 instructions">
   			<p>Instructions on how to create your event:</p>
   			<ol>
