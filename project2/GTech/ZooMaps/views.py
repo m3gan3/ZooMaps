@@ -44,3 +44,6 @@ class EventListView(generic.ListView):
     
 class EventDetailView(generic.DetailView):
     model = Event
+    
+class flatpage(generic.DetailView):
+	pass
