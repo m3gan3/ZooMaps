@@ -53,3 +53,4 @@ class EventDetailView(generic.DetailView):
 		context['rating_list'] = CommentEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
+
