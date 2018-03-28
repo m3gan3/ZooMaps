@@ -54,3 +54,11 @@ class EventDetailView(generic.DetailView):
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
 
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+
+class EventCreate(CreateView):
+    model = Event
+    fields = '__all__'
+    initial={'startDate': datetime.now()}
+
