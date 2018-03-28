@@ -43,7 +43,7 @@
   			  		{% else %}
   			  		{% with object_list|slice:"1:" as object_list2 %}
     				<ul>
-      					{% for object in object_list2 %}
+      					{% for object in object_list2|dictsort:"startDate" %}
       						
       						{% if object.name %}
       					<li>

@@ -141,7 +141,7 @@ dt{
 
 .right{
 	height: 400px;
-	width : 220px;
+	width : 180px;
 	overflow-y: auto;
 }
 
@@ -156,8 +156,7 @@ dt{
 }
 
 .form .col-md-6 {
-
-  padding:0px;
+  	padding:0px;
 }
 
 .form textarea {
