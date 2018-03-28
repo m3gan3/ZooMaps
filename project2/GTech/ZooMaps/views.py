@@ -31,18 +31,40 @@ class AccountListView(generic.ListView):
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
     	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
+ 
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
     	
 class EventListView(generic.ListView):
     model = Event
-    paginate_by = 3
+    paginate_by=4
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        query = self.request.GET.get('q', None)
-        if query:
-            context['event_list'] = Event.objects.filter(name__contains=query)
-        else:
-            context['event_list'] = Event.objects.all()
-        return context
+    	context = super().get_context_data(**kwargs)
+    	query = self.request.GET.get('q', None)
+    	if query:
+    		list_events= Event.objects.filter(name__contains=query)
+    		paginator = Paginator(list_events, self.paginate_by)
+    		page = self.request.GET.get('page')
+    		try:
+    			events = paginator.page(page)
+    		except PageNotAnInteger:
+    			events = paginator.page(1)
+    		except EmptyPage:
+    			events = paginator.page(paginator.num_pages)
+    		context['event_list'] =events
+    	else:
+    		list_events = Event.objects.all()
+    		paginator = Paginator(list_events, self.paginate_by)
+    		page = self.request.GET.get('page')
+    		try:
+    			events = paginator.page(page)
+    		except PageNotAnInteger:
+    			events = paginator.page(1)
+    		except EmptyPage:
+    			events = paginator.page(paginator.num_pages)
+    		context['event_list'] =events
+    	return context
     
 class EventDetailView(generic.DetailView):
 	model = Event

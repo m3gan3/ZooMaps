@@ -30,7 +30,7 @@
 	<ul>
 		{% if message_list %}
 			{% for message in message_list %}
-				<li>{{ message.object }} by {{ message.username.username }} <br> {{ message.comment }} </li>
+				<li>{{ message.object }} by {{ message.username.username }} <br> <i> {{ message.comment }} </i></li>
 			{% endfor %}
 		{% else %}
 			<li>There is no message yet for this event.</li>
