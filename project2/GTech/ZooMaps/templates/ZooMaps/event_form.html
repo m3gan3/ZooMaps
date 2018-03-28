@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block main %}
+<div>
+<form class="col-md-9 form" action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+    
+</form>
+</div>
+{% endblock %}
+
+  	{% block rightbar %}
+		</br>
+		</br>
+		</br>
+		</br>
+  		<div class="col-md-3 instructions">
+  			<p>Instructions on how to create your event:</p>
+  			<ol>
+  				<li>Tell us who you are</li>
+  				<li>Describe your events with emojis to be pinned on the map and tags</li>
+  				<li>Choose when and where the event will be happening</li>
+  				<li>Describe the event so that people can know what is going on</li>
+  				<li>Invite attendees to let them know about the event</li>
+  				<li>Submit and wait to get  your approval email</li>
+  				<li>Once the email received, your event will be published for others to see</li>
+  			</ol>
+  		</div>
+  	{% endblock %}
