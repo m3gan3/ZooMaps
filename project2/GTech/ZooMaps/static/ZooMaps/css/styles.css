@@ -141,6 +141,7 @@ dt{
 
 .right{
 	height: 400px;
+	width : 220px;
 	overflow-y: auto;
 }
 
