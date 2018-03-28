@@ -24,7 +24,7 @@ def index(request):
     
 from django.views import generic
 from itertools import chain
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class AccountListView(generic.ListView):
     model = User
@@ -60,5 +60,5 @@ from django.urls import reverse_lazy
 class EventCreate(CreateView):
     model = Event
     fields = '__all__'
-    initial={'startDate': datetime.now()}
+    initial={'startDate': datetime.now(), 'endDate': datetime.now()+ timedelta(hours=4)}
 
