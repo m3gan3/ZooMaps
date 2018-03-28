@@ -13,6 +13,7 @@
   		<div class="col-md-6 main account">
 
     			{% if object_list %}
+    				<p>
     				<ul>
 						
       					{% for object in object_list %}
@@ -27,6 +28,7 @@
       					{% endfor %}
 
     				</ul>
+    				</p>
     			{% else %}
       				<p>There are no user in the website yet.</p>
     			{% endif %} 
@@ -34,7 +36,7 @@
   	{% endblock %}
   	
   	{% block rightbar %}
-  		<div class="col-md-2">
+  		<div class="col-md-2 right">
   			<p> Your upcoming events </p>
   			{% if object_list|length == 1 %}
   			  			<p> You have nothing coming up </p>

@@ -24,12 +24,13 @@ def index(request):
     
 from django.views import generic
 from itertools import chain
+from datetime import datetime
 
 class AccountListView(generic.ListView):
     model = User
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
-        return list(chain(User.objects.filter(username='FunGuy01'), Event.objects.filter(attendees__in = User.objects.filter(username='FunGuy01'))))
+    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
     	
 class EventListView(generic.ListView):
     model = Event
@@ -45,6 +46,7 @@ class EventListView(generic.ListView):
     
 class EventDetailView(generic.DetailView):
 	model = Event
+	paginate_by = 1
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['event'] = self.object
