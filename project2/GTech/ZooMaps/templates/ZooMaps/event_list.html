@@ -25,10 +25,8 @@
     			{% else %}
       				<p>There are no events yet.</p>
     			{% endif %}
-  			
-  		</div>
-  		{% block pagination %}
-  						{% if is_paginated %}
+  			{% block pagination %}
+  						{% if paginate %}
      						<div class="pagination">
      	    					<span class="page-links">
               						{% if page_obj.has_previous %}
@@ -44,6 +42,8 @@
       						</div>
   						{% endif %}
 		{% endblock %}
+  		</div>
+  		
   	{% endblock %} 
   	{% block main %}	
   		<div class="col-md-8 text-center">
