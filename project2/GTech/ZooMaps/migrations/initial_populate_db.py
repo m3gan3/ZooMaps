@@ -21,6 +21,7 @@ def make_users(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
+      ('ZooMaps', '0001_initial')
     ]
 
     operations = [
