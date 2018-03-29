@@ -68,12 +68,3 @@ class EventDetailView(generic.DetailView):
 		context['rating_list'] = CommentEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
-
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
-
-class EventCreate(CreateView):
-    model = Event
-    fields = '__all__'
-    initial={'startDate': datetime.now(), 'endDate': datetime.now()+ timedelta(hours=4)}
-
