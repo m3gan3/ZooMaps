@@ -15,7 +15,7 @@
   			{% if event_list %}
     				<ul>
 
-      					{% for event in event_list|dictsort:"startDate" %}
+      					{% for event in event_list %}
       					<li>
         					<a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
       					</li>
@@ -26,7 +26,7 @@
       				<p>There are no events yet.</p>
     			{% endif %}
   			{% block pagination %}
-  						{% if is_paginated %}
+  						{% if paginate %}
      						<div class="pagination">
      	    					<span class="page-links">
               						{% if page_obj.has_previous %}

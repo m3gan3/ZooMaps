@@ -39,20 +39,13 @@ from django.core.paginator import PageNotAnInteger
 class EventListView(generic.ListView):
     model = Event
     paginate_by=4
+    
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
     	query = self.request.GET.get('q', None)
     	if query:
-    		list_events= Event.objects.filter(name__contains=query)
-    		paginator = Paginator(list_events, self.paginate_by)
-    		page = self.request.GET.get('page')
-    		try:
-    			events = paginator.page(page)
-    		except PageNotAnInteger:
-    			events = paginator.page(1)
-    		except EmptyPage:
-    			events = paginator.page(paginator.num_pages)
-    		context['event_list'] =events
+    		list_events = Event.objects.filter(name__contains=query)
+    		context['event_list'] = list_events
     	else:
     		list_events = Event.objects.all()
     		paginator = Paginator(list_events, self.paginate_by)
@@ -64,6 +57,7 @@ class EventListView(generic.ListView):
     		except EmptyPage:
     			events = paginator.page(paginator.num_pages)
     		context['event_list'] =events
+    		context['paginate'] = True
     	return context
     
 class EventDetailView(generic.DetailView):

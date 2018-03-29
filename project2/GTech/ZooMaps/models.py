@@ -46,7 +46,8 @@ class Event(models.Model):
     longitude = models.FloatField();
     tags = models.ManyToManyField(Tag, help_text='Select your favorite tags for the Event')
     attendees = models.ManyToManyField(User, help_text='Users going to your Event')
-   	
+    class Meta:
+    	ordering = ['startDate']
     def __str__(self):
         """
         String for representing the MyModelName object (in Admin site etc.)
