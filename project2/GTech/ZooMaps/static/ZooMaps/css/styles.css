@@ -209,3 +209,7 @@ ul.eventsList li{
   min-height: 20px;
   border: 1px solid transparent;
 }
+
+.contact {
+	min-height: 370px;
+ }
