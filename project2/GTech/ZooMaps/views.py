@@ -62,7 +62,6 @@ class EventListView(generic.ListView):
     
 class EventDetailView(generic.DetailView):
 	model = Event
-	paginate_by = 1
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['event'] = self.object
