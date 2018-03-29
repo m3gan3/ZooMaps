@@ -23,16 +23,18 @@ def index(request):
     )
     
 from django.views import generic
+from itertools import chain
+from datetime import datetime
 
 class AccountListView(generic.ListView):
     model = User
+    template_name = 'ZooMaps/account.html'
     def get_queryset(self):
-        return User.objects.filter(username='GTech') # Get the account of GTech
-    
+    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
+    	
 class EventListView(generic.ListView):
     model = Event
     paginate_by = 3
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q', None)
@@ -43,7 +45,11 @@ class EventListView(generic.ListView):
         return context
     
 class EventDetailView(generic.DetailView):
-    model = Event
-    
-class flatpage(generic.DetailView):
-	pass
+	model = Event
+	paginate_by = 1
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['event'] = self.object
+		context['rating_list'] = CommentEvent.objects.filter(event=self.object)
+		context['message_list'] = MessageEvent.objects.filter(event=self.object)
+		return context
