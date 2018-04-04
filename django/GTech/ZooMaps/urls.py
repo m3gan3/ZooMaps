@@ -11,3 +11,4 @@ urlpatterns = [
 	path('form/', TemplateView.as_view(template_name='ZooMaps/form.html'), name='form'),
 	path('contact/', TemplateView.as_view(template_name='ZooMaps/contact.html'), name='contact'),
 ]
+
