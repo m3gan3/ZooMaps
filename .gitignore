@@ -109,4 +109,4 @@ venv.bak/
 .mypy_cache/
 
 #databases
-django/ZooMaps/*.sqlite3
+django/GTech/*.sqlite3
