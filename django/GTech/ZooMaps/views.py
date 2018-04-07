@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.template import RequestContext
-
+from django.contrib.auth.models import User
 # Create your views here.
 
-from .models import User, Event, Tag, CommentEvent, MessageEvent
+from .models import Event, Tag, RatingEvent, MessageEvent
 
 def index(request):
     """
@@ -13,13 +13,13 @@ def index(request):
     num_user=User.objects.all().count()
     num_event=Event.objects.all().count()
     num_tag=Tag.objects.all().count()
-    num_comment=CommentEvent.objects.all().count()
+    num_rating=RatingEvent.objects.all().count()
     
     # Render the HTML template index.html with the data in the context variable
     return render(
         request,
         'index.html',
-        context={'num_user':num_user,'num_event':num_event,'num_tag':num_tag,'num_comment':num_comment},
+        context={'num_user':num_user,'num_event':num_event,'num_tag':num_tag,'num_rating':num_rating},
     )
     
 from django.views import generic
@@ -65,6 +65,29 @@ class EventDetailView(generic.DetailView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['event'] = self.object
-		context['rating_list'] = CommentEvent.objects.filter(event=self.object)
+		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
+		
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from datetime import datetime
+from datetime import date
+
+class EventCreate(CreateView):
+    model = Event
+    fields = '__all__'
+    initial={'startDate':date.today(), 'endDate':date.today()}
+    
+class MessageCreate(CreateView):
+    model = MessageEvent
+    fields = '__all__'
+    initial={'date':date.today()}
+    success_url = reverse_lazy('events')
+
+class RatingCreate(CreateView):
+    model = RatingEvent
+    fields = '__all__'
+    initial={'date':date.today()}
+    success_url = reverse_lazy('events')
+    
