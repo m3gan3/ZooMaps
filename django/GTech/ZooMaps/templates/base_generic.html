@@ -20,7 +20,7 @@
   		<div class="col-md-1" id="{% if '/ZooMaps/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'index' %}">About</a></div>
   		<div class="col-md-1" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Maps</a></div>
   		<div class="col-md-1" id="{% if '/ZooMaps/account/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'account' %}">Account</a></div>
-  		<div class="col-md-1" id="{% if '/ZooMaps/forms/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'form' %}">Forms</a></div>
+  		<div class="col-md-1" id="{% if '/ZooMaps/event/create' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'create-event' %}">Forms</a></div>
   		<div class="col-md-1" id="login-dropdown">
   			<div class="dropdown">
   				<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

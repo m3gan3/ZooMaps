@@ -68,3 +68,26 @@ class EventDetailView(generic.DetailView):
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
+		
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from datetime import datetime
+from datetime import date
+
+class EventCreate(CreateView):
+    model = Event
+    fields = '__all__'
+    initial={'startDate':date.today(), 'endDate':date.today()}
+    
+class MessageCreate(CreateView):
+    model = MessageEvent
+    fields = '__all__'
+    initial={'date':date.today()}
+    success_url = reverse_lazy('events')
+
+class RatingCreate(CreateView):
+    model = RatingEvent
+    fields = '__all__'
+    initial={'date':date.today()}
+    success_url = reverse_lazy('events')
+    
