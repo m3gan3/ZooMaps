@@ -86,7 +86,7 @@ dt{
 	text-align: center;
 }
 
-.bg-1 { 
+.bg-1 {
 	font-family:"comfortaaregular";
     background-color: #A52A2A; /* #8B0000; darker red #c0392b; Darkish red #1abc9c; Green */
 	color: #ffffff;
@@ -95,8 +95,8 @@ dt{
 	padding-right: 5px;
 	padding-left: 5px;
 }
-  
-.bg-2 { 
+
+.bg-2 {
 	font-family:"comfortaaregular";
     background-color: #f5f5f5; /* Dark grey */
 	color: black; /* #ffffff; white*/
@@ -104,7 +104,7 @@ dt{
     padding-bottom: 70px;
 }
 
-.bg-3 { 
+.bg-3 {
 	font-family:"comfortaaregular";
 	background-color: #474e5d;
 	color: black; /* #ffffff; white*/
@@ -112,17 +112,17 @@ dt{
     padding-bottom: 30px;
    	/*height: 70px;*/
 }
-  
-.container-fluid { 
+
+.container-fluid {
 	padding-left: 30px;
     padding-right: 30px;
 }
 
-.logged { 
+.logged {
 	padding-left: 30px;
     padding-right: 30px;
 }
-  
+
 .footer {
   bottom: 0;
   /* Set the fixed height of the footer here */
@@ -178,21 +178,21 @@ dt{
 	list-style-type: upper-roman;
 }
 
-ul.eventsList{ 
+ul.eventsList{
  	padding-bottom:30px;
 }
 
-ul.eventsList li{ 
+ul.eventsList li{
  	list-style-type: square;
     padding-top:15px;
 }
 
-.hours li{ 
+.hours li{
     padding-top:15px;
 	list-style-type: none;
 }
 
-.eventInfo li{ 
+.eventInfo li{
     padding-top:15px;
 	list-style-type: none;
 }
@@ -212,4 +212,10 @@ ul.eventsList li{
 
 .contact {
 	min-height: 370px;
+}
+
+.account-btn {
+  background-color: #ffffff;
+  padding-left: 6px;
+  margin: 40px 15px 10px 15px;
 }

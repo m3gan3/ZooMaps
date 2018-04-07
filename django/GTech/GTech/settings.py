@@ -55,7 +55,7 @@ ROOT_URLCONF = 'GTech.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./ZooMaps/templates/ZooMaps'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

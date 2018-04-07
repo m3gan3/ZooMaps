@@ -10,4 +10,5 @@ urlpatterns = [
 	path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
 	path('form/', TemplateView.as_view(template_name='ZooMaps/form.html'), name='form'),
 	path('contact/', TemplateView.as_view(template_name='ZooMaps/contact.html'), name='contact'),
+    path('user/', include('django.contrib.auth.urls')),
 ]
