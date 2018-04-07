@@ -1,5 +1,6 @@
 {% extends "base_generic.html" %}
-  	{% block leftbar %}	
+  	{% block leftbar %}
+      {% if user.is_authenticated %}
   		<div class="col-md-3">
   			<p class="logged"><a href="#">My future events</a></p>
   			<p class="logged"><a href="#">My past events</a></p>
@@ -7,35 +8,37 @@
   			<p class="logged"><a href="#">My comments</a></p>
   			<p class="logged"><a href="#">My chats</a></p>
   		</div>
+      {% endif %}
   	{% endblock %}
-  	
+
   	{% block main %}
   		<div class="col-md-6 main account">
 
     			{% if object_list %}
     				<p>
     				<ul>
-						
-      					{% for object in object_list %}
-      						{% if object.username %}
-      					<p class="account_title">Welcome {{object.username}}</p>
+
+      				  {% if user.is_authenticated %}
+      					<p class="account_title">Welcome {{user.first_name}}!</p>
       					<li>
-        					Your username: {{ object.username }}
+        					Your username: {{ user.get_username }}
         					<br>
-        					Your email.address: {{object.emailAddress}}	
+        					Your email address: {{ user.email }}
       					</li>
+                {% else %}
+                <p>You must be logged in to view this page.</p>
       					{% endif %}
-      					{% endfor %}
 
     				</ul>
     				</p>
     			{% else %}
       				<p>There are no user in the website yet.</p>
-    			{% endif %} 
+    			{% endif %}
   		</div>
   	{% endblock %}
-  	
+
   	{% block rightbar %}
+      {% if user.is_authenticated %}
   		<div class="col-md-2 right">
   			<p> Your upcoming events </p>
   			{% if object_list|length == 1 %}
@@ -44,7 +47,7 @@
   			  		{% with object_list|slice:"1:" as object_list2 %}
     				<ul>
       					{% for object in object_list2|dictsort:"startDate" %}
-      						
+
       						{% if object.name %}
       					<li>
         					Up next: <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
@@ -56,5 +59,6 @@
     				{% endwith %}
     			{% endif %}
   		</div>
-  		
+      {% endif %}
+
   	{% endblock %}

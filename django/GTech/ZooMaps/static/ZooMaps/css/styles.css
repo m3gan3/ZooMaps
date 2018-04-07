@@ -219,3 +219,12 @@ ul.eventsList li{
   padding-left: 6px;
   margin: 40px 15px 10px 15px;
 }
+
+input[type=submit] {
+    padding:3px 8px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
