@@ -27,7 +27,7 @@ class UserModel(models.Model):
     username = models.CharField(max_length=20, help_text="Enter your username")
     password = models.CharField(max_length=20, help_text="Enter your password", default = "")
     emailAddress = models.CharField(max_length=20, help_text="Enter your email address",default = "")
-
+    first_name = models.CharField(max_length=20, help_text="Enter your first name")
     def __str__(self):
         """
         String for representing the MyModelName object (in Admin site etc.)
@@ -75,7 +75,7 @@ class RatingEvent(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(default=0,validators=[MaxValueValidator(1), MinValueValidator(-1)])
     date = models.DateTimeField(blank=False, null=False,default = datetime.now)
-    
+
     def __str__(self):
         """
         String for representing the MyModelName object (in Admin site etc.)
@@ -92,7 +92,7 @@ class MessageEvent(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     comment = models.TextField(max_length=1000, help_text='Enter a brief message for the otehr users interested in the event')
     date = models.DateTimeField(blank=False, null=False,default = datetime.now)
-    
+
     def __str__(self):
         """
         String for representing the MyModelName object (in Admin site etc.)
