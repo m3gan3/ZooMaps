@@ -12,7 +12,14 @@
   <p><button type="button" class="btn-lg">Join</button> <button type="button" class="btn-lg"><a href="{% url 'create-message' %}">Chat</a></button> <button type="button" class="btn-lg"><a href="{% url 'create-rating' %}">Rate</a></button></p>
   <p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}}">MessageBis</a></button></p>
   <p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}}">RateBis</a></button></p>
-  </div> 
+  <p>{% if user in event.attendees.all %} 
+  		You are going 
+  		<p><button type="button" class="btn-lg"><a href="">Ungo</a></button></p>
+  	{% else %}
+  	<p><button type="button" class="btn-lg"><a href="">Go</a></button></p>
+  {% endif %}</p>
+</div> 
+  
 {% endblock %}
 
 {% block rightbar %}

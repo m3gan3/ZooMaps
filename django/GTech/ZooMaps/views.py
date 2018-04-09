@@ -32,7 +32,7 @@ class AccountListView(generic.ListView):
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
     	#return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
-    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'),)))
+    	return list(chain(User.objects.filter(username='compsci326'), Event.objects.filter(attendees__in = User.objects.filter(username='compsci326'),endDate__gte = (datetime.now()))))
  
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -112,7 +112,6 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-import datetime
 
 from .forms import RateEventForm, CommentEventForm
 
@@ -150,7 +149,38 @@ def message_event(request, pk):
     View function for creating a specific Event
     """
     event=get_object_or_404(Event, pk = pk)
+    # success_url = reverse_lazy('event/'+pk)
     success_url = reverse_lazy('events')
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = CommentEventForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+        	message = MessageEvent.objects.create()
+        	message.comment = form.cleaned_data['message']
+        	message.event= event
+        	message.username= request.user
+        	message.date = date.today()
+        	message.save() 
+        	# redirect to a new URL:
+        	return HttpResponseRedirect(reverse('events') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+    	form = CommentEventForm(initial={'message': 'yup',})
+    
+    return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
+    
+def attend_event(request, pk):
+    """
+    View function for creating a specific Event
+    """
+    event=get_object_or_404(Event, pk = pk)
+    # success_url = reverse_lazy('event/'+pk)
+    success_url = reverse_lazy('account')
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
