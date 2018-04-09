@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% block main %}
+
+    <h1>Event: {{event.name}}</h1>
+    <p>User: {{user.get_username}}</p>
+    <p>Come join us!</p>
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}

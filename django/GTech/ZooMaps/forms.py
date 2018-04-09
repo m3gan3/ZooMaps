@@ -34,11 +34,24 @@ class AttendEventForm(forms.Form):
     answer = forms.BooleanField(help_text="Want to attend?")
 
     def clean_renewal_date(self):
-        data = self.cleaned_data['answer']
+        data = self.cleaned_data['coming?']
         
         #Check that message is not empty. 
         if not (answer):
-            raise ValidationError(_('Nothing has been entered'))
+            raise ValidationError(_('You do not want to go?'))
+
+        # Remember to always return the cleaned data.
+        return data
+        
+class UnAttendEventForm(forms.Form):
+    answer = forms.BooleanField(help_text="Don't want to go anymore?")
+
+    def clean_renewal_date(self):
+        data = self.cleaned_data['not coming?']
+        
+        #Check that message is not empty. 
+        if not (answer):
+            raise ValidationError(_('You do want to go?'))
 
         # Remember to always return the cleaned data.
         return data
