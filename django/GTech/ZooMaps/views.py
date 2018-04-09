@@ -31,8 +31,8 @@ class AccountListView(generic.ListView):
     model = User
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
-    	#return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
-    	return list(chain(User.objects.filter(username=self.request.user.get_username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.get_username),endDate__gte = (datetime.now()))))
+        account_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username),endDate__gte = (datetime.now()))))
+        return account_events
 
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
