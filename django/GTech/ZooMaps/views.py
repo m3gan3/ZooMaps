@@ -15,14 +15,14 @@ def index(request):
     num_event=Event.objects.all().count()
     num_tag=Tag.objects.all().count()
     num_rating=RatingEvent.objects.all().count()
-    
+
     # Render the HTML template index.html with the data in the context variable
     return render(
         request,
         'index.html',
         context={'num_user':num_user,'num_event':num_event,'num_tag':num_tag,'num_rating':num_rating},
     )
-    
+
 from django.views import generic
 from itertools import chain
 from datetime import datetime, timedelta
@@ -32,16 +32,16 @@ class AccountListView(generic.ListView):
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
     	#return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
-    	return list(chain(User.objects.filter(username='compsci326'), Event.objects.filter(attendees__in = User.objects.filter(username='compsci326'),endDate__gte = (datetime.now()))))
- 
+    	return list(chain(User.objects.filter(username=self.request.user.get_username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.get_username),endDate__gte = (datetime.now()))))
+
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-    	
+
 class EventListView(generic.ListView):
     model = Event
     paginate_by=4
-    
+
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
     	query = self.request.GET.get('q', None)
@@ -61,7 +61,7 @@ class EventListView(generic.ListView):
     		context['event_list'] =events
     		context['paginate'] = True
     	return context
-    
+
 class EventDetailView(generic.DetailView):
 	model = Event
 	def get_context_data(self, **kwargs):
@@ -70,7 +70,7 @@ class EventDetailView(generic.DetailView):
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
-		
+
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from datetime import datetime
@@ -81,7 +81,7 @@ class EventCreate(CreateView):
     model = Event
     fields = '__all__'
     initial={'startDate':date.today(), 'endDate':date.today()}
-    
+
 class MessageCreate(CreateView):
     model = MessageEvent
     fields = '__all__'
@@ -90,23 +90,23 @@ class MessageCreate(CreateView):
 
 class RatingCreate(LoginRequiredMixin, CreateView):
 	#self.request.user.get_username
-    
+
     model = RatingEvent
     read_only = ('date',)
     fields = ("username","rating","date")
     initial={'date':date.today()}
     success_url = reverse_lazy('events')
-    
-    
+
+
     #def get_context_data(self, **kwargs):
         #initial={'username':self.request.user}
         #fields = ("username","rating","date")
-        
+
     #def form_valid(self, form):
         #form.instance.created_by = self.request.user
         #return super().form_valid(form)
-    
-    
+
+
 from django.contrib.auth.decorators import permission_required
 
 from django.shortcuts import get_object_or_404
@@ -134,16 +134,16 @@ def rate_event(request, pk):
         	rating.event= event
         	rating.username= request.user
         	rating.date = date.today()
-        	rating.save() 
+        	rating.save()
         	# redirect to a new URL:
         	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
     	form = RateEventForm(initial={'rating': 0,})
-    
+
     return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
-    
+
 def message_event(request, pk):
     """
     View function for creating a specific Event
@@ -164,16 +164,16 @@ def message_event(request, pk):
         	message.event= event
         	message.username= request.user
         	message.date = date.today()
-        	message.save() 
+        	message.save()
         	# redirect to a new URL:
         	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
     	form = CommentEventForm(initial={'message': 'yup',})
-    
+
     return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
-    
+
 def attend_event(request, pk):
     """
     View function for creating a specific Event
@@ -189,16 +189,16 @@ def attend_event(request, pk):
         # Check if the form is valid:
         if form.is_valid():
         	event.attendees.add(request.user)
-        	event.save() 
+        	event.save()
         	# redirect to a new URL:
         	return HttpResponseRedirect(reverse('account') )
 
     # If this is a GET (or any other method) create the default form.
     else:
     	form = AttendEventForm(initial={})
-    
+
     return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
-    
+
 def unattend_event(request, pk):
     """
     View function for creating a specific Event
@@ -214,13 +214,12 @@ def unattend_event(request, pk):
         # Check if the form is valid:
         if form.is_valid():
         	event.attendees.remove(request.user)
-        	event.save() 
+        	event.save()
         	# redirect to a new URL:
         	return HttpResponseRedirect(reverse('account') )
 
     # If this is a GET (or any other method) create the default form.
     else:
     	form = UnAttendEventForm(initial={})
-    
+
     return render(request, 'ZooMaps/unattend.html', {'form': form, 'event':event})
-    
