@@ -12,7 +12,7 @@ class RateEventForm(forms.Form):
         
         #Check rating is -1, 0 or 1. 
         if not ((data ==1) or (data ==0) or (data == -1)):
-            raise ValidationError(_('Invalid rating - only 0, 1 or -1'))
+            raise ValidationError(_('Invalid rating - rate only using -1, 0, or 1'))
 
         # Remember to always return the cleaned data.
         return data
@@ -34,7 +34,7 @@ class AttendEventForm(forms.Form):
     answer = forms.BooleanField(help_text="Want to attend?")
 
     def clean_renewal_date(self):
-        data = self.cleaned_data['coming?']
+        data = self.cleaned_data['answer']
         
         #Check that message is not empty. 
         if event.date < datetime.date.today():
@@ -47,7 +47,7 @@ class UnAttendEventForm(forms.Form):
     answer = forms.BooleanField(help_text="Don't want to go anymore?")
 
     def clean_renewal_date(self):
-        data = self.cleaned_data['not coming?']
+        data = self.cleaned_data['answer']
         
         #Check that message is not empty. 
         if not (answer):
