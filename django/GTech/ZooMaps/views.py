@@ -120,7 +120,7 @@ def rate_event(request, pk):
     View function for creating a specific Event
     """
     event=get_object_or_404(Event, pk = pk)
-    success_url = reverse_lazy('events')
+    success_url = reverse_lazy('event-detail', kwargs = {'pk' : event.id, })
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
@@ -136,7 +136,7 @@ def rate_event(request, pk):
         	rating.date = date.today()
         	rating.save() 
         	# redirect to a new URL:
-        	return HttpResponseRedirect(reverse('events') )
+        	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -150,7 +150,7 @@ def message_event(request, pk):
     """
     event=get_object_or_404(Event, pk = pk)
     # success_url = reverse_lazy('event/'+pk)
-    success_url = reverse_lazy('events')
+    success_url = reverse_lazy('event-detail', kwargs = {'pk' : event.id, })
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
@@ -166,7 +166,7 @@ def message_event(request, pk):
         	message.date = date.today()
         	message.save() 
         	# redirect to a new URL:
-        	return HttpResponseRedirect(reverse('events') )
+        	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -179,7 +179,6 @@ def attend_event(request, pk):
     View function for creating a specific Event
     """
     event=get_object_or_404(Event, pk = pk)
-    # success_url = reverse_lazy('event/'+pk)
     success_url = reverse_lazy('account')
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -205,7 +204,6 @@ def unattend_event(request, pk):
     View function for creating a specific Event
     """
     event=get_object_or_404(Event, pk = pk)
-    # success_url = reverse_lazy('event/'+pk)
     success_url = reverse_lazy('account')
     # If this is a POST request then process the Form data
     if request.method == 'POST':
