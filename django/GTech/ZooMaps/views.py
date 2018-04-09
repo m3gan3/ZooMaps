@@ -113,14 +113,14 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .forms import RateEventForm, CommentEventForm
+from .forms import RateEventForm, CommentEventForm, AttendEventForm, UnAttendEventForm
 
 def rate_event(request, pk):
     """
     View function for creating a specific Event
     """
     event=get_object_or_404(Event, pk = pk)
-    success_url = reverse_lazy('events')
+    success_url = reverse_lazy('event-detail', kwargs = {'pk' : event.id, })
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
@@ -136,7 +136,7 @@ def rate_event(request, pk):
         	rating.date = date.today()
         	rating.save() 
         	# redirect to a new URL:
-        	return HttpResponseRedirect(reverse('events') )
+        	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -150,7 +150,7 @@ def message_event(request, pk):
     """
     event=get_object_or_404(Event, pk = pk)
     # success_url = reverse_lazy('event/'+pk)
-    success_url = reverse_lazy('events')
+    success_url = reverse_lazy('event-detail', kwargs = {'pk' : event.id, })
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
@@ -166,7 +166,7 @@ def message_event(request, pk):
         	message.date = date.today()
         	message.save() 
         	# redirect to a new URL:
-        	return HttpResponseRedirect(reverse('events') )
+        	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -179,28 +179,48 @@ def attend_event(request, pk):
     View function for creating a specific Event
     """
     event=get_object_or_404(Event, pk = pk)
-    # success_url = reverse_lazy('event/'+pk)
     success_url = reverse_lazy('account')
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
         # Create a form instance and populate it with data from the request (binding):
-        form = CommentEventForm(request.POST)
+        form = AttendEventForm(request.POST)
 
         # Check if the form is valid:
         if form.is_valid():
-        	message = MessageEvent.objects.create()
-        	message.comment = form.cleaned_data['message']
-        	message.event= event
-        	message.username= request.user
-        	message.date = date.today()
-        	message.save() 
+        	event.attendees.add(request.user)
+        	event.save() 
         	# redirect to a new URL:
-        	return HttpResponseRedirect(reverse('events') )
+        	return HttpResponseRedirect(reverse('account') )
 
     # If this is a GET (or any other method) create the default form.
     else:
-    	form = CommentEventForm(initial={'message': 'yup',})
+    	form = AttendEventForm(initial={})
     
-    return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
+    return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
+    
+def unattend_event(request, pk):
+    """
+    View function for creating a specific Event
+    """
+    event=get_object_or_404(Event, pk = pk)
+    success_url = reverse_lazy('account')
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = UnAttendEventForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+        	event.attendees.remove(request.user)
+        	event.save() 
+        	# redirect to a new URL:
+        	return HttpResponseRedirect(reverse('account') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+    	form = UnAttendEventForm(initial={})
+    
+    return render(request, 'ZooMaps/unattend.html', {'form': form, 'event':event})
     

@@ -10,13 +10,13 @@
   <p><strong>Tags: </strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
   <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p> 
   <p><button type="button" class="btn-lg">Join</button> <button type="button" class="btn-lg"><a href="{% url 'create-message' %}">Chat</a></button> <button type="button" class="btn-lg"><a href="{% url 'create-rating' %}">Rate</a></button></p>
-  <p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}}">MessageBis</a></button></p>
-  <p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}}">RateBis</a></button></p>
+  <p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">MessageBis</a></button></p>
+  <p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}">RateBis</a></button></p>
   <p>{% if user in event.attendees.all %} 
   		You are going 
-  		<p><button type="button" class="btn-lg"><a href="">Ungo</a></button></p>
+  		<p><button type="button" class="btn-lg"><a href="{% url 'unattend-event' event.id %}">Ungo</a></button></p>
   	{% else %}
-  	<p><button type="button" class="btn-lg"><a href="">Go</a></button></p>
+  	<p><button type="button" class="btn-lg"><a href="{% url 'attend-event' event.id %}">Go</a></button></p>
   {% endif %}</p>
 </div> 
   
