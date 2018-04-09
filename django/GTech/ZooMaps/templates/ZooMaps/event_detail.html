@@ -3,14 +3,16 @@
 {% block main %}
 <div class="col-md-8 main">
   <h1>Event: {{ event.name }}</h1>
-
+  <h1>ID: {{ event.id }}</h1>
   <p><strong>Starts: </strong>{{ event.startDate }}</p>
   <p><strong>Ends: </strong> {{ event.endDate }}</p>
   <p><strong>Description: </strong> {{ event.description }}</p>  
   <p><strong>Tags: </strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
   <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p> 
   <p><button type="button" class="btn-lg">Join</button> <button type="button" class="btn-lg"><a href="{% url 'create-message' %}">Chat</a></button> <button type="button" class="btn-lg"><a href="{% url 'create-rating' %}">Rate</a></button></p>
-</div> 
+  <p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}}">MessageBis</a></button></p>
+  <p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}}">RateBis</a></button></p>
+  </div> 
 {% endblock %}
 
 {% block rightbar %}

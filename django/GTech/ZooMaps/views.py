@@ -31,7 +31,8 @@ class AccountListView(generic.ListView):
     model = User
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
-    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
+    	#return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'), endDate__gte = (datetime.now()))))
+    	return list(chain(User.objects.filter(username='GTech'), Event.objects.filter(attendees__in = User.objects.filter(username='GTech'),)))
  
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -106,4 +107,70 @@ class RatingCreate(LoginRequiredMixin, CreateView):
         #return super().form_valid(form)
     
     
+from django.contrib.auth.decorators import permission_required
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+import datetime
+
+from .forms import RateEventForm, CommentEventForm
+
+def rate_event(request, pk):
+    """
+    View function for creating a specific Event
+    """
+    event=get_object_or_404(Event, pk = pk)
+    success_url = reverse_lazy('events')
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = RateEventForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+        	rating = RatingEvent.objects.create()
+        	rating.rating = form.cleaned_data['rating']
+        	rating.event= event
+        	rating.username= request.user
+        	rating.date = date.today()
+        	rating.save() 
+        	# redirect to a new URL:
+        	return HttpResponseRedirect(reverse('events') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+    	form = RateEventForm(initial={'rating': 0,})
+    
+    return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
+    
+def message_event(request, pk):
+    """
+    View function for creating a specific Event
+    """
+    event=get_object_or_404(Event, pk = pk)
+    success_url = reverse_lazy('events')
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = CommentEventForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+        	message = MessageEvent.objects.create()
+        	message.comment = form.cleaned_data['message']
+        	message.event= event
+        	message.username= request.user
+        	message.date = date.today()
+        	message.save() 
+        	# redirect to a new URL:
+        	return HttpResponseRedirect(reverse('events') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+    	form = CommentEventForm(initial={'message': 'yup',})
+    
+    return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
     

@@ -15,3 +15,8 @@ urlpatterns = [
     path('message/create', views.MessageCreate.as_view(), name='create-message'),
     path('rating/create', views.RatingCreate.as_view(), name='create-rating'),
 ]
+
+urlpatterns += [   
+    path('event/<int:pk>/rate', views.rate_event, name='rate-event'),
+    path('event/<int:pk>/message', views.message_event, name='message-event'),
+]
