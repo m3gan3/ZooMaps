@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib.auth.models import User
+
 # Create your views here.
 
 from .models import Event, Tag, RatingEvent, MessageEvent
@@ -73,6 +74,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from datetime import datetime
 from datetime import date
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class EventCreate(CreateView):
     model = Event
@@ -85,9 +87,23 @@ class MessageCreate(CreateView):
     initial={'date':date.today()}
     success_url = reverse_lazy('events')
 
-class RatingCreate(CreateView):
+class RatingCreate(LoginRequiredMixin, CreateView):
+	#self.request.user.get_username
+    
     model = RatingEvent
-    fields = '__all__'
+    read_only = ('date',)
+    fields = ("username","rating","date")
     initial={'date':date.today()}
     success_url = reverse_lazy('events')
+    
+    
+    #def get_context_data(self, **kwargs):
+        #initial={'username':self.request.user}
+        #fields = ("username","rating","date")
+        
+    #def form_valid(self, form):
+        #form.instance.created_by = self.request.user
+        #return super().form_valid(form)
+    
+    
     
