@@ -69,6 +69,7 @@ class EventDetailView(generic.DetailView):
 		context['event'] = self.object
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
+		#context['is_in_the_future'] = self.object.startDate< datetime.now()
 		return context
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -82,31 +83,6 @@ class EventCreate(CreateView):
     fields = '__all__'
     initial={'startDate':date.today(), 'endDate':date.today()}
 
-class MessageCreate(CreateView):
-    model = MessageEvent
-    fields = '__all__'
-    initial={'date':date.today()}
-    success_url = reverse_lazy('events')
-
-class RatingCreate(LoginRequiredMixin, CreateView):
-	#self.request.user.get_username
-
-    model = RatingEvent
-    read_only = ('date',)
-    fields = ("username","rating","date")
-    initial={'date':date.today()}
-    success_url = reverse_lazy('events')
-
-
-    #def get_context_data(self, **kwargs):
-        #initial={'username':self.request.user}
-        #fields = ("username","rating","date")
-
-    #def form_valid(self, form):
-        #form.instance.created_by = self.request.user
-        #return super().form_valid(form)
-
-
 from django.contrib.auth.decorators import permission_required
 
 from django.shortcuts import get_object_or_404
@@ -114,7 +90,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .forms import RateEventForm, CommentEventForm, AttendEventForm, UnAttendEventForm
-
+@permission_required('catalog.can_mark_returned')
 def rate_event(request, pk):
     """
     View function for creating a specific Event
@@ -143,7 +119,7 @@ def rate_event(request, pk):
     	form = RateEventForm(initial={'rating': 0,})
 
     return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
-
+@permission_required('catalog.can_mark_returned')
 def message_event(request, pk):
     """
     View function for creating a specific Event
@@ -173,7 +149,7 @@ def message_event(request, pk):
     	form = CommentEventForm(initial={'message': 'yup',})
 
     return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
-
+@permission_required('catalog.can_mark_returned')
 def attend_event(request, pk):
     """
     View function for creating a specific Event
@@ -198,7 +174,7 @@ def attend_event(request, pk):
     	form = AttendEventForm(initial={})
 
     return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
-
+@permission_required('catalog.can_mark_returned')
 def unattend_event(request, pk):
     """
     View function for creating a specific Event

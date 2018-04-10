@@ -7,7 +7,7 @@ import datetime
 class RateEventForm(forms.Form):
     rating = forms.IntegerField(help_text="Enter a rating between -1 and 1.")
 
-    def clean_renewal_date(self):
+    def clean_rating(self):
         data = self.cleaned_data['rating']
         
         #Check rating is -1, 0 or 1. 
@@ -20,7 +20,7 @@ class RateEventForm(forms.Form):
 class CommentEventForm(forms.Form):
     message = forms.CharField(help_text="Enter your message.")
 
-    def clean_renewal_date(self):
+    def clean_message(self):
         data = self.cleaned_data['message']
         
         #Check that message is not empty. 
@@ -31,14 +31,14 @@ class CommentEventForm(forms.Form):
         return data
         
 class AttendEventForm(forms.Form):
-    answer = forms.BooleanField(help_text="Want to attend?")
-
-    def clean_renewal_date(self):
+    answer = forms.BooleanField(help_text="You would like to attend?")
+    
+    def clean_answer(self):
         data = self.cleaned_data['answer']
         
-        #Check that message is not empty. 
-        if event.date < datetime.date.today():
-            raise ValidationError(_('Cannot go, it is in the past!'))
+        #Check that event is in the future. 
+        #if data.date < datetime.date.today():
+         #   raise ValidationError(_('Cannot go, it is in the past!'))
 
         # Remember to always return the cleaned data.
         return data
@@ -46,12 +46,12 @@ class AttendEventForm(forms.Form):
 class UnAttendEventForm(forms.Form):
     answer = forms.BooleanField(help_text="Don't want to go anymore?")
 
-    def clean_renewal_date(self):
+    def clean_answer(self):
         data = self.cleaned_data['answer']
         
-        #Check that message is not empty. 
-        if not (answer):
-            raise ValidationError(_('You do want to go?'))
+        #Check. 
+        #if not (answer):
+         #   raise ValidationError(_('You do want to go?'))
 
         # Remember to always return the cleaned data.
         return data
