@@ -4,7 +4,7 @@
 	{% if message_list %}
 	<p> Here are the different messages posted about the event {{ event.name }} </p>
     <ul>
-    	{% for message in message_list %}
+    	{% for message in message_list|dictsort:"date" %}
   			<li>{{ message.comment }} by {{ message.username.username }} on {{ message.date }}</li>
   		{% endfor %}
   	{% else %}

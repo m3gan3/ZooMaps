@@ -57,6 +57,7 @@ class RatingListView(LoginRequiredMixin, generic.ListView):
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.db.models import Q
 
 class EventListView(generic.ListView):
     model = Event
@@ -66,7 +67,7 @@ class EventListView(generic.ListView):
     	context = super().get_context_data(**kwargs)
     	query = self.request.GET.get('q', None)
     	if query:
-    		list_events = Event.objects.filter(name__contains=query)
+    		list_events = Event.objects.filter(Q(description__contains=query)|Q(name__contains=query))
     		context['event_list'] = list_events
     	else:
     		list_events = Event.objects.all()
