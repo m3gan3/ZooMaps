@@ -20,3 +20,10 @@ urlpatterns += [
     path('event/<int:pk>/attend', views.attend_event, name='attend-event'),
     path('event/<int:pk>/unattend', views.unattend_event, name='unattend-event'),
 ]
+
+urlpatterns += [   
+    path('account/messages', views.MessageListView.as_view(), name='messages'),
+    path('account/ratings', views.RatingListView.as_view(), name='ratings'),
+    path('rating/<int:pk>/update/', views.RatingEventUpdate.as_view(), name='rating_update'),
+    path('event/<int:pk>/messages', views.EventDetailMessageView.as_view(), name='event-messages'),
+]

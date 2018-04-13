@@ -26,13 +26,33 @@ def index(request):
 from django.views import generic
 from itertools import chain
 from datetime import datetime, timedelta
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class AccountListView(generic.ListView):
+class AccountListView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
         account_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username),endDate__gte = (datetime.now()))))
         return account_events
+        
+class MessageListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myMessages.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	context['user'] = self.request.user
+    	context['message_list'] = MessageEvent.objects.filter(username=self.request.user)
+    	return context
+
+class RatingListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myRatings.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	context['user'] = self.request.user
+    	context['rating_list'] = RatingEvent.objects.filter(username=self.request.user)
+    	return context
 
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -69,7 +89,17 @@ class EventDetailView(generic.DetailView):
 		context['event'] = self.object
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
+		context['my_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user)
 		#context['is_in_the_future'] = self.object.startDate< datetime.now()
+		return context
+		
+class EventDetailMessageView(generic.DetailView):
+	model = Event
+	template_name = 'ZooMaps/eventDetailedMessages.html'
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['event'] = self.object
+		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -90,7 +120,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .forms import RateEventForm, CommentEventForm, AttendEventForm, UnAttendEventForm
-@permission_required('catalog.can_mark_returned')
+
+
+@login_required
 def rate_event(request, pk):
     """
     View function for creating a specific Event
@@ -119,7 +151,13 @@ def rate_event(request, pk):
     	form = RateEventForm(initial={'rating': 0,})
 
     return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
-@permission_required('catalog.can_mark_returned')
+
+class RatingEventUpdate(UpdateView):
+    model = RatingEvent
+    fields = ['rating']
+    success_url = reverse_lazy('ratings')
+
+@login_required
 def message_event(request, pk):
     """
     View function for creating a specific Event
@@ -149,7 +187,8 @@ def message_event(request, pk):
     	form = CommentEventForm(initial={'message': 'yup',})
 
     return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
-@permission_required('catalog.can_mark_returned')
+
+@login_required
 def attend_event(request, pk):
     """
     View function for creating a specific Event
@@ -174,7 +213,8 @@ def attend_event(request, pk):
     	form = AttendEventForm(initial={})
 
     return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
-@permission_required('catalog.can_mark_returned')
+
+@login_required
 def unattend_event(request, pk):
     """
     View function for creating a specific Event

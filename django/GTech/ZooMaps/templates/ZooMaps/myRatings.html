@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block main %}
+<div class="col-md-8 main">
+    				<ul>
+
+      				  {% if user.is_authenticated %}
+      					<div><p class="account_title"> {{ user.get_username }}, here are the ratings you gave: </p></div>
+      					<ul>
+  							{% for rating in rating_list %}
+  								<li>{{ rating.rating }} for <a href="{{ rating.event.get_absolute_url }}">{{ rating.event.name }}</a></li>
+  							{% endfor %}
+  						</ul>
+                	 {% else %}
+                		<p>You must be logged in to view this page.</p>
+      				 {% endif %}
+
+    				</ul>
+    				<p>To change a rating, click on the event</p>
+  		</div>
+ 
+{% endblock %}
