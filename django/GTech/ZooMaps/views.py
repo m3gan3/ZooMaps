@@ -82,6 +82,27 @@ class EventListView(generic.ListView):
     		context['event_list'] =events
     		context['paginate'] = True
     	return context
+    	
+class FutureEventListView(generic.ListView):
+    model = Event
+    paginate_by=4
+    template_name = 'ZooMaps/future_event_list.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	list_events = Event.objects.filter(endDate__gte = (datetime.now()))
+    	context['future_event_list'] = list_events
+    	return context
+    	
+class OngoingEventListView(generic.ListView):
+    model = Event
+    paginate_by=4
+    template_name = 'ZooMaps/ongoing_event_list.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	list_events = Event.objects.filter(endDate__range=[datetime.now(), datetime.now() + timedelta(days=3)])
+    	#list_events = Event.objects.filter(endDate__gte=(datetime.now() + timedelta(weeks=4)))
+    	context['future_event_list'] = list_events
+    	return context
 
 class EventDetailView(generic.DetailView):
 	model = Event
@@ -109,7 +130,8 @@ from datetime import datetime
 from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class EventCreate(CreateView):
+
+class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     fields = '__all__'
     initial={'startDate':date.today(), 'endDate':date.today()}
