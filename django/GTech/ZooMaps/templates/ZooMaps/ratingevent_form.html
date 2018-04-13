@@ -5,7 +5,7 @@
 
 <form class="col-md-9 form" action="" method="post">
 <h2>Hi {{ user.get_username }}</h2>
-<h3>How much would you give to</h3>
+<h3>Want to change your rating?</h3>
     {% csrf_token %}
     <table>
     {{ form.as_table }}

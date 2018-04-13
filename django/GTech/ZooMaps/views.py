@@ -89,7 +89,17 @@ class EventDetailView(generic.DetailView):
 		context['event'] = self.object
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
+		context['my_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user)
 		#context['is_in_the_future'] = self.object.startDate< datetime.now()
+		return context
+		
+class EventDetailMessageView(generic.DetailView):
+	model = Event
+	template_name = 'ZooMaps/eventDetailedMessages.html'
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['event'] = self.object
+		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -141,6 +151,11 @@ def rate_event(request, pk):
     	form = RateEventForm(initial={'rating': 0,})
 
     return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
+
+class RatingEventUpdate(UpdateView):
+    model = RatingEvent
+    fields = ['rating']
+    success_url = reverse_lazy('ratings')
 
 @login_required
 def message_event(request, pk):

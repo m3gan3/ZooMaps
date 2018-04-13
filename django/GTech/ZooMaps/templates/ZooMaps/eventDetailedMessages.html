@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% block main %}
+<div class="col-md-8 main">
+	{% if message_list %}
+	<p> Here are the different messages posted about the event {{ event.name }} </p>
+    <ul>
+    	{% for message in message_list %}
+  			<li>{{ message.comment }} by {{ message.username.username }} on {{ message.date }}</li>
+  		{% endfor %}
+  	{% else %}
+  		<p>There is no message about the event {{ event.name }} yet. </p>
+  	{% endif %}
+	</ul>
+	
+	{% if user.is_authenticated %}
+  		<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
+ 	{% endif %}
+</div>
+ 
+{% endblock %}
