@@ -26,8 +26,10 @@ def index(request):
 from django.views import generic
 from itertools import chain
 from datetime import datetime, timedelta
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class AccountListView(generic.ListView):
+class AccountListView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = 'ZooMaps/account.html'
     def get_queryset(self):
@@ -90,7 +92,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .forms import RateEventForm, CommentEventForm, AttendEventForm, UnAttendEventForm
-@permission_required('catalog.can_mark_returned')
+
+
+@login_required
 def rate_event(request, pk):
     """
     View function for creating a specific Event
@@ -119,7 +123,8 @@ def rate_event(request, pk):
     	form = RateEventForm(initial={'rating': 0,})
 
     return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
-@permission_required('catalog.can_mark_returned')
+
+@login_required
 def message_event(request, pk):
     """
     View function for creating a specific Event
@@ -149,7 +154,8 @@ def message_event(request, pk):
     	form = CommentEventForm(initial={'message': 'yup',})
 
     return render(request, 'ZooMaps/message.html', {'form': form, 'event':event})
-@permission_required('catalog.can_mark_returned')
+
+@login_required
 def attend_event(request, pk):
     """
     View function for creating a specific Event
@@ -174,7 +180,8 @@ def attend_event(request, pk):
     	form = AttendEventForm(initial={})
 
     return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
-@permission_required('catalog.can_mark_returned')
+
+@login_required
 def unattend_event(request, pk):
     """
     View function for creating a specific Event
