@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+{% block main %}
+<div class="col-md-8 main">
+    				<p>
+    				<ul>
+
+      				  {% if user.is_authenticated %}
+      					<div><p class="account_title"> {{ user.get_username }}, here are the messages you posted: </p></div>
+      					<ul>
+  							{% for message in message_list %}
+  								<li>{{ message.comment }} for <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a></li>
+  							{% endfor %}
+  						</ul>
+                	 {% else %}
+                		<p>You must be logged in to view this page.</p>
+      				 {% endif %}
+
+    				</ul>
+    				</p>
+  		</div>
+ 
+{% endblock %}

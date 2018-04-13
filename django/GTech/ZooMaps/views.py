@@ -35,6 +35,24 @@ class AccountListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         account_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username),endDate__gte = (datetime.now()))))
         return account_events
+        
+class MessageListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myMessages.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	context['user'] = self.request.user
+    	context['message_list'] = MessageEvent.objects.filter(username=self.request.user)
+    	return context
+
+class RatingListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myRatings.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	context['user'] = self.request.user
+    	context['rating_list'] = RatingEvent.objects.filter(username=self.request.user)
+    	return context
 
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
