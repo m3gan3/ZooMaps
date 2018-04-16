@@ -163,32 +163,24 @@ def rate_event(request, pk):
     success_url = reverse_lazy('event-detail', kwargs = {'pk' : event.id, })
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-
-        # Create a form instance and populate it with data from the request (binding):
-        form = RateEventForm(request.POST)
-
-        # Check if the form is valid:
-        if form.is_valid():
-        	rating = RatingEvent.objects.create()
-        	rating.rating = form.cleaned_data['rating']
-        	rating.event= event
-        	rating.username= request.user
-        	rating.date = date.today()
-        	rating.save()
-        	# redirect to a new URL:
-        	return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
+    	form = RateEventForm(request.POST)
+    	# Check if the form is valid:
+    	if form.is_valid():
+    		RatingEvent.objects.filter(event=event,username=request.user).delete()
+    		rating = RatingEvent.objects.create()
+    		rating.rating = form.cleaned_data['rating']
+    		rating.event= event
+    		rating.username= request.user
+    		rating.date = date.today()
+    		rating.save()
+    		# redirect to a new URL:
+    		return HttpResponseRedirect(reverse('event-detail', kwargs = {'pk' : event.id, }))
 
     # If this is a GET (or any other method) create the default form.
     else:
-    	form = RateEventForm(initial={'rating': 0,})
+   		form = RateEventForm(initial={'rating': 0,})
 
     return render(request, 'ZooMaps/rating.html', {'form': form, 'event':event})
-
-class RatingEventUpdate(LoginRequiredMixin, UpdateView):
-    model = RatingEvent
-    fields = ['rating']
-    initial={'date':datetime.now(),}
-    success_url = reverse_lazy('ratings')
 
 @login_required
 def message_event(request, pk):
