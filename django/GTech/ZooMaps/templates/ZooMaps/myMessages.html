@@ -5,7 +5,7 @@
     				<ul>
 
       				  {% if user.is_authenticated %}
-      					<div><p class="info"> {{ user.get_username }}, here are the messages you posted: </p></div>
+      					<div><p class="info"> {{ user.first_name }}, here are the messages you posted: </p></div>
       					<ul>
   							{% for message in message_list %}
   								<li>On {{ message.date }}, you posted this about <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a>:
@@ -19,5 +19,5 @@
     				</ul>
     				</p>
   		</div>
- 
+
 {% endblock %}
