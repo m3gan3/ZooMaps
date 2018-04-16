@@ -110,7 +110,7 @@ class FutureEventListView(generic.ListView):
     template_name = 'ZooMaps/future_event_list.html'
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
-    	list_events = Event.objects.filter(endDate__gte = (datetime.now()))
+    	list_events = Event.objects.filter(startDate__gte = (datetime.now()))
     	context['future_event_list'] = list_events
     	return context
 
@@ -120,7 +120,7 @@ class OngoingEventListView(generic.ListView):
     template_name = 'ZooMaps/ongoing_event_list.html'
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
-    	list_events = Event.objects.filter(endDate__range=[datetime.now(), datetime.now() + timedelta(days=3)])
+    	list_events = Event.objects.filter(startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))
     	#list_events = Event.objects.filter(endDate__gte=(datetime.now() + timedelta(weeks=4)))
     	context['future_event_list'] = list_events
     	return context
