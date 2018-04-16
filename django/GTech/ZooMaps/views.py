@@ -35,7 +35,7 @@ class AccountListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         account_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username),endDate__gte = (datetime.now()))))
         return account_events
-        
+
 class MessageListView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = 'ZooMaps/myMessages.html'
@@ -53,6 +53,27 @@ class RatingListView(LoginRequiredMixin, generic.ListView):
     	context['user'] = self.request.user
     	context['rating_list'] = RatingEvent.objects.filter(username=self.request.user)
     	return context
+
+class MyFutureEventListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myFutureEvents.html'
+    def get_queryset(self):
+        future_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), startDate__gte = (datetime.now()))))
+        return future_events
+
+class MyPastEventListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myPastEvents.html'
+    def get_queryset(self):
+        past_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), endDate__lte = (datetime.now()))))
+        return past_events
+
+class MyCurrentEventListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myCurrentEvents.html'
+    def get_queryset(self):
+        current_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))))
+        return current_events
 
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -82,24 +103,24 @@ class EventListView(generic.ListView):
     		context['event_list'] =events
     		context['paginate'] = True
     	return context
-    	
+
 class FutureEventListView(generic.ListView):
     model = Event
     paginate_by=4
     template_name = 'ZooMaps/future_event_list.html'
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
-    	list_events = Event.objects.filter(endDate__gte = (datetime.now()))
+    	list_events = Event.objects.filter(startDate__gte = (datetime.now()))
     	context['future_event_list'] = list_events
     	return context
-    	
+
 class OngoingEventListView(generic.ListView):
     model = Event
     paginate_by=4
     template_name = 'ZooMaps/ongoing_event_list.html'
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
-    	list_events = Event.objects.filter(endDate__range=[datetime.now(), datetime.now() + timedelta(days=3)])
+    	list_events = Event.objects.filter(startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))
     	#list_events = Event.objects.filter(endDate__gte=(datetime.now() + timedelta(weeks=4)))
     	context['future_event_list'] = list_events
     	return context
@@ -114,7 +135,7 @@ class EventDetailView(generic.DetailView):
 		if self.request.user.is_authenticated:
 			context['my_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user)
 		return context
-		
+
 class EventDetailMessageView(generic.DetailView):
 	model = Event
 	template_name = 'ZooMaps/eventDetailedMessages.html'
@@ -123,7 +144,7 @@ class EventDetailMessageView(generic.DetailView):
 		context['event'] = self.object
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
 		return context
-		
+
 class EventDetailRatingView(generic.DetailView):
 	model = Event
 	template_name = 'ZooMaps/eventDetailedRatings.html'
