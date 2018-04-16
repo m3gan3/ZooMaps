@@ -15,6 +15,8 @@
 	{% if user.is_authenticated %}
   		<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
  	{% endif %}
+ 	<br>
+ 	<p> Go back to <a href="{% url 'event-detail' event.id %}">{{ event.name }}</a></p>
 </div>
  
 {% endblock %}

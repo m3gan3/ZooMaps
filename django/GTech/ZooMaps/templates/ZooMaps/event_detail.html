@@ -13,7 +13,7 @@
   	<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
   	{% if my_rating %}
   		{% for rating in my_rating %}
-  			<p>You gave this event a {{ rating.rating }}. <button type="button" class="btn-lg"><a href="{% url 'rating_update' rating.id %}">Modify</a></button></p>
+  			<p>You gave this event a {{ rating.rating }}. <button type="button" class="btn-lg"><a href="{% url 'rate-event' rating.event.id %}">Modify</a></button></p>
   		{% endfor %}
   	{% else %}
   	<p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}">Rate</a></button></p>	
