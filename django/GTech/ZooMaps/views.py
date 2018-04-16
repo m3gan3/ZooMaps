@@ -58,8 +58,22 @@ class MyFutureEventListView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = 'ZooMaps/myFutureEvents.html'
     def get_queryset(self):
-        future_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), endDate__gte = (datetime.now()))))
+        future_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), startDate__gte = (datetime.now()))))
         return future_events
+
+class MyPastEventListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myPastEvents.html'
+    def get_queryset(self):
+        past_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), endDate__lte = (datetime.now()))))
+        return past_events
+
+class MyCurrentEventListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = 'ZooMaps/myCurrentEvents.html'
+    def get_queryset(self):
+        current_events = list(chain(User.objects.filter(username=self.request.user.username), Event.objects.filter(attendees__in = User.objects.filter(username=self.request.user.username), startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))))
+        return current_events
 
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage

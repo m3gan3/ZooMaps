@@ -3,8 +3,8 @@
       {% if user.is_authenticated %}
   		<div class="col-md-3">
   			<p class="logged"><a href="{% url 'my-future-events' %}">My future events</a></p>
-  			<p class="logged"><a href="#">My past events</a></p>
-  			<p class="logged"><a href="#">My favorite spots</a></p>
+  			<p class="logged"><a href="{% url 'my-past-events' %}">My past events</a></p>
+  			<p class="logged"><a href="{% url 'my-current-events' %}">My favorite spots</a></p>
   			<p class="logged"><a href="{% url 'ratings' %}">My ratings</a></p>
   			<p class="logged"><a href="{% url 'messages' %}">My comments</a></p>
   		</div>
