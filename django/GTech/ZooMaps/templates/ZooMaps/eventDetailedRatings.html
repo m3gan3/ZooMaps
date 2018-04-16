@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% block main %}
+<div class="col-md-8 main">
+	{% if rating_list %}
+	<p> Here are the different ratings given to the event {{ event.name }} </p>
+    <ul>
+    	{% for rating in rating_list|dictsort:"date" %}
+  			<li>On {{ rating.date }}, {{ rating.username.username }} gave {{ rating.rating }}</li>
+  		{% endfor %}
+  	{% else %}
+  		<p>There is no rating about the event {{ event.name }} yet. </p>
+  	{% endif %}
+	</ul>
+	
+	{% if user.is_authenticated %}
+  		<p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}">Rate</a></button></p>
+ 	{% endif %}
+</div>
+ 
+{% endblock %}

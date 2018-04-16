@@ -27,5 +27,6 @@ urlpatterns += [
     path('rating/<int:pk>/update/', views.RatingEventUpdate.as_view(), name='rating_update'),
     path('event/<int:pk>/messages', views.EventDetailMessageView.as_view(), name='event-messages'),
     path('events/future', views.FutureEventListView.as_view(), name='future-events'),
+    path('event/<int:pk>/ratings', views.EventDetailRatingView.as_view(), name='event-ratings'),
     path('events/ongoing', views.OngoingEventListView.as_view(), name='ongoing-events'),
 ]

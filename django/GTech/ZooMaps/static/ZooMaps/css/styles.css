@@ -232,3 +232,13 @@ input[type=submit] {
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
+
+.display{
+	font-size: 15px;
+}
+
+.info{
+	font-size: 25px;
+	margin-bottom:30px;
+}
+

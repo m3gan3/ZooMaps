@@ -1,14 +1,15 @@
 {% extends "base_generic.html" %}
 {% block main %}
-<div class="col-md-8 main">
+<div class="col-md-8 main display">
     				<p>
     				<ul>
 
       				  {% if user.is_authenticated %}
-      					<div><p class="account_title"> {{ user.get_username }}, here are the messages you posted: </p></div>
+      					<div><p class="info"> {{ user.get_username }}, here are the messages you posted: </p></div>
       					<ul>
   							{% for message in message_list %}
-  								<li>{{ message.comment }} for <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a></li>
+  								<li>On {{ message.date }}, you posted this about <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a>:
+  								<p><i>{{ message.comment }}</i></p></li>
   							{% endfor %}
   						</ul>
                 	 {% else %}
