@@ -108,13 +108,11 @@ if __name__ == '__main__':
                 print('Deleting files...')
                 cmd_to_run = 'find . -path "*/migrations/*.py" -not -name "__init__.py" -delete'
                 print_cmd(cmd_to_run)
-                cmd_list = cmd_to_run.split(' ')
-                subprocess.run(cmd_list, shell=True)
+                os.system(cmd_to_run)
 
                 cmd_to_run = 'find . -path "*/migrations/*.pyc" -delete'
                 print_cmd(cmd_to_run)
-                cmd_list = cmd_to_run.split(' ')
-                subprocess.run(cmd_list, shell=True)
+                os.system(cmd_to_run)
 
                 print('Migrations files deleted. Exiting.')
                 break
