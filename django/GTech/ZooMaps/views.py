@@ -121,9 +121,9 @@ class OngoingEventListView(generic.ListView):
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
     	list_events = Event.objects.filter(startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))
-    	context['future_event_list'] = list_events
+    	context['ongoing_event_list'] = list_events
     	return context
-    	
+   	
 from django.db.models import Avg   	
 class EventDetailView(generic.DetailView):
 	model = Event
@@ -132,7 +132,7 @@ class EventDetailView(generic.DetailView):
 		context['event'] = self.object
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
 		context['message_list'] = MessageEvent.objects.filter(event=self.object)
-		context['average_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user).aggregate(Avg('rating'))
+		context['average_rating'] = RatingEvent.objects.filter(event=self.object).aggregate(Avg('rating'))
 		if self.request.user.is_authenticated:
 			context['my_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user)
 		return context
@@ -153,6 +153,7 @@ class EventDetailRatingView(generic.DetailView):
 		context = super().get_context_data(**kwargs)
 		context['event'] = self.object
 		context['rating_list'] = RatingEvent.objects.filter(event=self.object)
+		context['average_rating'] = RatingEvent.objects.filter(event=self.object).aggregate(Avg('rating'))
 		return context
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView

@@ -7,6 +7,7 @@
     	{% for rating in rating_list|dictsort:"date" %}
   			<li>On {{ rating.date.date }}, {{ rating.username.username }} gave {% if rating.rating == -1 %}<span class="negative">negative{% elif rating.rating == 1 %}<span class="positive">positive{% else %}<span class="neutral">neutral{% endif %}</span> rating.</li>
   		{% endfor %}
+  		<p>The average rating for this event is {{ average_rating.rating__avg|floatformat }}/1</p>
   	{% else %}
   		<p>There is no rating about the event {{ event.name }} yet. </p>
   	{% endif %}

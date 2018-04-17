@@ -3,10 +3,10 @@
   		<div class="col-md-3">
   			<h2> Here are the different events going on now</h2>
 
-  			{% if future_event_list %}
+  			{% if ongoing_event_list %}
     				<ul>
 
-      					{% for event in future_event_list %}
+      					{% for event in ongoing_event_list %}
       					<li>
         					<a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
       					</li>
