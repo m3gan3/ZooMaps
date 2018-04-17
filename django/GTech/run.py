@@ -3,12 +3,14 @@ import os, sys, subprocess, argparse
 from django.core.wsgi import get_wsgi_application
 from django.core.management import call_command
 
+
 """
 Master script that takes optional arguments and runs the correspoding script.
 The script's purpose is to perform common tasks such as running the server,
 making migrations, running tests, etc. Runs the server by default if no argument
 is provided.
 """
+
 
 def print_cmd(cmd):
     """
@@ -24,6 +26,17 @@ def print_cmd(cmd):
     sys.stdout.flush()  # Make sure stdout is flushed before continuing.
 
 
+def is_database_synchronized(database):
+    connection = connections[database]
+    connection.prepare_database()
+    executor = MigrationExecutor(connection)
+    targets = executor.loader.graph.leaf_nodes()
+    if executor.migration_plan(targets):
+        return False
+    else:
+        return True
+
+
 if __name__ == '__main__':
     proj_path = os.getcwd()
     # This is so Django knows where to find stuff.
@@ -36,6 +49,10 @@ if __name__ == '__main__':
     # This is so models get loaded.
     application = get_wsgi_application()
 
+    # Import modules to allow for checking of database migrations
+    from django.db.migrations.executor import MigrationExecutor
+    from django.db import connections, DEFAULT_DB_ALIAS
+
     # Get the given command line argument, if there is one, representing the actions to perform.
     args = sys.argv[1:]
     cmd = None
@@ -45,7 +62,29 @@ if __name__ == '__main__':
     # Run server if no argument provided
     if not cmd or cmd == 'server':
         # TODO check if migrations need to be performed, if they do, prompt user to perform them.
-        call_command('runserver',  '127.0.0.1:8000')
+        if is_database_synchronized(DEFAULT_DB_ALIAS):
+            # All migrations applied. Proceed with running server.
+            # Chose not to print the explicit command w/ print_cmd() because Django will reload, thus printing it 2+ times.
+            call_command('runserver',  '127.0.0.1:8000')
+        else:
+            # Unapplied migrations. Prompt user to run them. Then run the server
+            while True:
+                apply_migrations = input('Unapplied migrations detected. Would you like to run them (y/n)?').lower()
+                while apply_migrations not in ('y', 'n'):
+                    apply_migrations = input('Unapplied migrations detected. Would you like to run them (y/n)?')
+                if apply_migrations == 'n':
+                    print('Migrations will not be applied. Exiting')
+                    break
+                else:
+                    # TODO: Refactor migrations commands into their own function
+                    print('Creating/updating database...')
+                    print_cmd('python manage.py makemigrations ZooMaps')
+                    call_command('makemigrations', 'ZooMaps')
+                    print_cmd('python manage.py migrate')
+                    call_command('migrate')
+
+                    print('Migrations made. Running server')
+                    call_command('runserver',  '127.0.0.1:8000')
     elif cmd == 'build':
         print('Creating/updating database...')
         print_cmd('python manage.py makemigrations ZooMaps')
@@ -53,7 +92,12 @@ if __name__ == '__main__':
         print_cmd('python manage.py migrate')
         call_command('migrate')
 
-        # TODO: Make calls to loaddata to load any fixtures (including the superuser)
+        # Detect if a superuser exists. If not, ask user if they want to load 'compsci326'
+        superusers = application.User.objects.filter(is_superuser=True)
+        if not superusers:
+            # TODO: refactor into separate custom command.
+            print("No superusers detected. Would you like to load the provided 'compsci326' superuser (y/n)?")
+            pass
     elif cmd == 'test':
         print('Running test suite in tests directory')
         pass
