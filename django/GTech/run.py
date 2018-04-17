@@ -86,6 +86,7 @@ if __name__ == '__main__':
                     apply_migrations()
                     print('Migrations made. Running server')
                     call_command('runserver',  '127.0.0.1:8000')
+                    break
     elif cmd == 'build':
         apply_migrations()
     elif cmd == 'test':
@@ -105,6 +106,16 @@ if __name__ == '__main__':
                 print('Files will not be deleted. Exiting.')
             else:
                 print('Deleting files...')
-                import delete_migrations
+                cmd_to_run = 'find . -path "*/migrations/*.py" -not -name "__init__.py" -delete'
+                print_cmd(cmd_to_run)
+                cmd_list = cmd_to_run.split(' ')
+                subprocess.run(cmd_list, shell=True)
+
+                cmd_to_run = 'find . -path "*/migrations/*.pyc" -delete'
+                print_cmd(cmd_to_run)
+                cmd_list = cmd_to_run.split(' ')
+                subprocess.run(cmd_list, shell=True)
+
                 print('Migrations files deleted. Exiting.')
+                break
     sys.exit()
