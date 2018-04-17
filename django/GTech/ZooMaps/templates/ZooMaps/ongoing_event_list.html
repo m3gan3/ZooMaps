@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 	{% block leftbar %}	
   		<div class="col-md-3">
-  			<h2> Here are the different events going on during the next couple of days</h2>
+  			<h2> Here are the different events going on now</h2>
 
   			{% if future_event_list %}
     				<ul>
@@ -14,7 +14,7 @@
 
     				</ul>
     			{% else %}
-      				<p>There is no event coming up soon.</p>
+      				<p>There is no event going on at the moment.</p>
     			{% endif %}
   			{% block pagination %}
   						{% if paginate %}
