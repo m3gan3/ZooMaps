@@ -5,7 +5,7 @@
 	<p> Here are the different ratings given to the event {{ event.name }} </p>
     <ul>
     	{% for rating in rating_list|dictsort:"date" %}
-  			<li>On {{ rating.date }}, {{ rating.username.username }} gave {{ rating.rating }}</li>
+  			<li>On {{ rating.date.date }}, {{ rating.username.username }} gave {% if rating.rating == -1 %}<span class="negative">negative{% elif rating.rating == 1 %}<span class="positive">positive{% else %}<span class="neutral">neutral{% endif %}</span></li>
   		{% endfor %}
   	{% else %}
   		<p>There is no rating about the event {{ event.name }} yet. </p>

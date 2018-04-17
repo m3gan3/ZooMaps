@@ -8,7 +8,7 @@
       					<div><p class="info"> {{ user.first_name }}, here are the messages you posted: </p></div>
       					<ul>
   							{% for message in message_list %}
-  								<li>On {{ message.date }}, you posted this about <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a>:
+  								<li>On {{ message.date.date }}, you posted this about <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a>:
   								<p><i>{{ message.comment }}</i></p></li>
   							{% endfor %}
   						</ul>
