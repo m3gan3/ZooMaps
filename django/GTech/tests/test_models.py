@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ZooMaps.models import .
+import ZooMaps.models
 import random
 
 
