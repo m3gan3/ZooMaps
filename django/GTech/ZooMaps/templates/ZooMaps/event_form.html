@@ -4,6 +4,37 @@
 <div>
 <form class="col-md-9 form" action="" method="post">
     {% csrf_token %}
+    <div style="height: 300px;width: 100%;" id="map"></div>
+    <script>
+      var map;
+      var userMarker;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: new google.maps.LatLng(42.389567, -72.526570),
+          mapTypeId: 'satellite',
+          mapTypeControl: false,
+          streetViewControl: false,
+          rotateControl: false
+        });
+
+        userMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(map.center.lat(), map.center.lng()),
+        label: "*",
+        draggable: true,
+        map: map,
+      });
+      google.maps.event.addListener(
+        userMarker,
+        'drag',
+        function(event) {
+          document.getElementById('id_latitude').value = this.position.lat();
+          document.getElementById('id_longitude').value = this.position.lng();
+      });
+     }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi9L5nXDSdRXGfJPLbzWxyK966QzpoYdE&callback=initMap">
+    </script>
     <table>
     {{ form.as_table }}
     </table>
