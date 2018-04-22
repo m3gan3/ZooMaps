@@ -27,6 +27,33 @@
   	{% endif %}</p>
   	
   {% endif %}
+  <div id="map" style="width:100%;height: 540px;"></div>
+  <script>
+    var map;
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: new google.maps.LatLng({{ event.latitude }}, {{ event.longitude }}),
+        mapTypeId: 'satellite',
+        mapTypeControl: false,
+        streetViewControl: false,
+        rotateControl: false
+      });
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng({{ event.latitude }}, {{ event.longitude }}),
+        label: "{{ event.emoji }}",
+        map: map
+      });
+      // var infowindow = new google.maps.InfoWindow({
+      //   content: "<h3>{{ event.name }}</h3><p>{{ event.description }}</p><a href=\"{{ event.get_absolute_url }}\">More Info</a>"
+      // });
+      // marker.addListener('click', function() {
+      //   infowindow.open(map, marker);
+      // });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi9L5nXDSdRXGfJPLbzWxyK966QzpoYdE&callback=initMap">
+  </script>
 </div> 
   
 {% endblock %}
