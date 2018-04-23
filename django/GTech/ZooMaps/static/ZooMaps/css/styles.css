@@ -62,11 +62,14 @@ a {
 }
 
 dt{
-	padding-top:30px;
+	padding-top: 30px;
+  line-height: 50px;
+  font-size: 28px;
 }
 
 dd {
-  font-size: 15px;
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .title{
