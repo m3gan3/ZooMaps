@@ -1,55 +1,86 @@
 {% extends "base_generic.html" %}
-	{% block leftbar %}	
-  		<div class="col-md-3">
-  			<form>
-  				<input class="searchbar" type="text" placeholder="Search" name="q" value="{{ request.GET.q }}">
-  				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
+  {% block leftbar %} 
+      <div class="col-md-3">
+        <form>
+          <input class="searchbar" type="text" placeholder="Search" name="q" value="{{ request.GET.q }}">
+          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
       </form>
-  			<p class=""><a href="#">My recent searches</a></p>
-  			<p class=""><a href="#">Filters</a></p>
-  			<p class="">&emsp;&emsp;<a href="{% url 'ongoing-events' %}">Ongoing events</a></p>
-  			<p class="">&emsp;&emsp;<a href="{% url 'future-events' %}">Future events</a></p>
-  			<p class="">&emsp;&emsp;<a href="{% url 'best-rated-events' %}">Best rated</a></p>
-  			<p class="">&emsp;&emsp;<a href="#">More filters...</a></p>
-  			
-  			{% if event_list %}
-    				<ul>
+        <p class=""><a href="#">My recent searches</a></p>
+        <p class=""><a href="#">Filters</a></p>
+        <p class="">&emsp;&emsp;<a href="{% url 'ongoing-events' %}">Ongoing events</a></p>
+        <p class="">&emsp;&emsp;<a href="{% url 'future-events' %}">Future events</a></p>
+        <p class="">&emsp;&emsp;<a href="#">Best rated</a></p>
+        <p class="">&emsp;&emsp;<a href="#">More filters...</a></p>
+        
+        {% if event_list %}
+            <ul>
 
-      					{% for event in event_list %}
-      					<li>
-        					<a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
-    
-      					</li>
-      					{% endfor %}
+                {% for event in event_list %}
+                <li>
+                  <a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
+                </li>
+                {% endfor %}
 
-    				</ul>
-    			{% else %}
-      				<p>There are no events yet.</p>
-    			{% endif %}
-  			{% block pagination %}
-  						{% if paginate %}
-     						<div class="pagination">
-     	    					<span class="page-links">
-              						{% if page_obj.has_previous %}
-                  						<a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-              						{% endif %}
-              						<span class="page-current">
-                  						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-              						</span>
-              						{% if page_obj.has_next %}
-                  						<a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-              						{% endif %}
-          						</span>
-      						</div>
-  						{% endif %}
-		{% endblock %}
-  		</div>
-  		
-  	{% endblock %} 
-  	{% block main %}	
-  		<div class="col-md-8 text-center">
-  		{% load static %}
-		<img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/>
-  		</div>
-  		<div class="col-md-1"></div>
-  	{% endblock %}
+            </ul>
+          {% else %}
+              <p>There are no events yet.</p>
+          {% endif %}
+        {% block pagination %}
+              {% if paginate %}
+                <div class="pagination">
+                    <span class="page-links">
+                          {% if page_obj.has_previous %}
+                              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                          {% endif %}
+                          <span class="page-current">
+                              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                          </span>
+                          {% if page_obj.has_next %}
+                              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                          {% endif %}
+                      </span>
+                  </div>
+              {% endif %}
+    {% endblock %}
+      </div>
+      
+    {% endblock %} 
+    {% block main %}  
+      <div class="col-md-8 text-center">
+      {% load static %}
+    <!-- <img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/> -->
+    <div id="map" style="width:100%;height: 540px;"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: new google.maps.LatLng(42.389567, -72.526570),
+          mapTypeId: 'satellite',
+          mapTypeControl: false,
+          streetViewControl: false,
+          rotateControl: false
+        });
+        {% autoescape off %}
+          locations = {{ json }};
+        {% endautoescape %}
+        locations.map(function(location){
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(location.fields.latitude, location.fields.longitude),
+            label: location.fields.emoji,
+            map: map
+          });
+          var infowindow = new google.maps.InfoWindow({
+            content: "<h3>"+ location.fields.name +"</h3><p>"+ location.fields.description +"</p><a href=\""+ location.fields.get_absolute_url +"\">More Info</a>"
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi9L5nXDSdRXGfJPLbzWxyK966QzpoYdE&callback=initMap">
+    </script>
+      </div>
+      <div class="col-md-1"></div>
+    {% endblock %}
