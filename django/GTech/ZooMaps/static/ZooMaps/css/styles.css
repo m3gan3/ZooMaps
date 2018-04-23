@@ -79,6 +79,11 @@ dd {
 	text-align: center;
 }
 
+.maps a {
+  font-size: 10px;
+  font-weight: bold;
+}
+
 #nav-item a {
   color: #dbdbdb;
 }
@@ -184,6 +189,7 @@ dd {
   display: block;
   color:black;
   margin:10px 0px;
+  border-radius: 5px;
 }
 
 .form .col-md-6 {
@@ -215,7 +221,11 @@ ul.eventsList{
 
 ul.eventsList li{
  	list-style-type: square;
-    padding-top:15px;
+  padding-top:15px;
+}
+
+ul.mapEvents {
+  padding-left: 5px;
 }
 
 .hours li{
@@ -233,6 +243,7 @@ ul.eventsList li{
     border: none;
     margin-bottom: 20px;
     font-size: 15px;
+    border-radius: 5px;
 }
 
 .navbar-2 {

@@ -1,5 +1,5 @@
 {% extends "base_generic.html" %}
-	{% block leftbar %}	
+	{% block leftbar %}
   		<div class="col-md-3">
   			<h2> Here are the different events going on now</h2>
 
@@ -8,7 +8,7 @@
 
       					{% for event in ongoing_event_list %}
       					<li>
-        					<a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
+        					<a class="maps" href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
       					</li>
       					{% endfor %}
 
@@ -21,23 +21,23 @@
      						<div class="pagination">
      	    					<span class="page-links">
               						{% if page_obj.has_previous %}
-                  						<a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                  						<a class="maps" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
               						{% endif %}
               						<span class="page-current">
                   						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
               						</span>
               						{% if page_obj.has_next %}
-                  						<a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                  						<a class="maps" href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
               						{% endif %}
           						</span>
       						</div>
   						{% endif %}
 		{% endblock %}
-		<p class="">&emsp;&emsp;<a href="{% url 'events' %}">Another search</a></p>
+		<p class="">&emsp;&emsp;<a class="maps" href="{% url 'events' %}">Another search</a></p>
   		</div>
-  		
-  	{% endblock %} 
-  	{% block main %}	
+
+  	{% endblock %}
+  	{% block main %}
   		<div class="col-md-8 text-center">
   		{% load static %}
 				<!-- <img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/> -->
