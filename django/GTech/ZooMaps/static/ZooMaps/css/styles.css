@@ -72,16 +72,24 @@ dd {
 	text-align: center;
 }
 
+#nav-item a {
+  color: #dbdbdb;
+}
+
+#nav-selected a {
+  color: white;
+}
+
 #nav-item {
 	margin: 40px 15px 0px 15px;
-    font-size: 18px;
+  font-size: 18px;
 	text-align: center;
 }
 
 #nav-selected {
 	margin: 40px 15px 0px 15px;
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 25px;
+	font-weight: bolder;
 	text-align: center;
 }
 
@@ -94,8 +102,6 @@ dd {
 	font-family:"comfortaaregular";
     background-color: #A52A2A; /* #8B0000; darker red #c0392b; Darkish red #1abc9c; Green */
 	color: #ffffff;
- 	padding-top: 10px;
-    padding-bottom: 5px;
 	padding-right: 5px;
 	padding-left: 5px;
 }
