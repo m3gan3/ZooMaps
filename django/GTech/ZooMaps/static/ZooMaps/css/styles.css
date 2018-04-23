@@ -39,6 +39,10 @@ body {
   margin: 0 0 100px;
 }
 
+a {
+  color: #800000;
+}
+
 .main {
 	font-size: 20px;
 	margin-left:40px;
@@ -129,8 +133,12 @@ dd {
 }
 
 .logged {
-	padding-left: 30px;
-    padding-right: 30px;
+	padding-left: 15px;
+  padding-right: 15px;
+}
+
+.logged a {
+  font-size: 15px;
 }
 
 .footer a {

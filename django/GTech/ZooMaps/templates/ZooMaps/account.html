@@ -2,11 +2,12 @@
   	{% block leftbar %}
       {% if user.is_authenticated %}
   		<div class="col-md-3">
-  			<p class="logged"><a href="{% url 'my-future-events' %}">My future events</a></p>
-  			<p class="logged"><a href="{% url 'my-past-events' %}">My past events</a></p>
-  			<p class="logged"><a href="{% url 'my-current-events' %}">My favorite spots</a></p>
-  			<p class="logged"><a href="{% url 'ratings' %}">My ratings</a></p>
-  			<p class="logged"><a href="{% url 'messages' %}">My comments</a></p>
+        <p style="font-weight: bold; font-size: 15px;">Account Navigation</p>
+        <p class="logged"><a href="{% url 'account' %}"><i class="fas fa-user"></i>&nbsp;My account</a></p>
+  			<p class="logged"><a href="{% url 'my-future-events' %}"><i class="fas fa-calendar"></i>&nbsp;My future events</a></p>
+  			<p class="logged"><a href="{% url 'my-past-events' %}"><i class="fas fa-redo-alt"></i>&nbsp;My past events</a></p>
+  			<p class="logged"><a href="{% url 'ratings' %}"><i class="fas fa-star"></i>&nbsp;My ratings</a></p>
+  			<p class="logged"><a href="{% url 'messages' %}"><i class="fas fa-comment-alt"></i>&nbsp;My comments</a></p>
   		</div>
       {% endif %}
   	{% endblock %}
@@ -34,25 +35,19 @@
 
   	{% block rightbar %}
       {% if user.is_authenticated %}
-  		<div class="col-md-2 right">
-  			<p> Your upcoming events </p>
+  		<div class="col-md-2">
+  			<p style="font-weight: bold; font-size: 15px;"> Your upcoming events </p>
   			{% if object_list|length == 1 %}
-  			  			<p> You have nothing coming up </p>
-  			  		{% else %}
-  			  		{% with object_list|slice:"1:" as object_list2 %}
-    				<ul>
-      					{% for object in object_list2|dictsort:"startDate" %}
-
-      						{% if object.name %}
-      					<li>
-        					Up next: <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
-      					</li>
-      					{% endif %}
-      					{% endfor %}
-
-    				</ul>
-    				{% endwith %}
-    			{% endif %}
+    		  <p> You have nothing coming up </p>
+  			{% else %}
+  			  {% with object_list|slice:"1:" as object_list2 %}
+      				{% for object in object_list2|dictsort:"startDate" %}
+        				{% if object.name %}
+          					<p class="logged"><a href="{{ object.get_absolute_url }}"><i class="far fa-clock"></i>&nbsp;{{ object.name }}</a></p>
+        				{% endif %}
+      				{% endfor %}
+    			{% endwith %}
+    		{% endif %}
   		</div>
       {% endif %}
 
