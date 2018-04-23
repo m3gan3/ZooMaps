@@ -14,21 +14,21 @@
 
 {% block main %}
 <div class="col-md-6 main display">
-    				<ul>
+		<ul>
 
-      				  {% if user.is_authenticated %}
-      					<div><p class="info"> {{ user.first_name }}, here are the ratings you have given: </p></div>
-      					<ul>
-  							{% for rating in rating_list %}
-  								<li>On {{ rating.date.date }}, you gave <a href="{{ rating.event.get_absolute_url }}">{{ rating.event.name }}</a> a {% if rating.rating == -1 %}negative{% elif rating.rating == 1 %}positive{% else %}neutral{% endif %} rating</li>
-  							{% endfor %}
-  						  </ul>
-                	 {% else %}
-                		<p>You must be logged in to view this page.</p>
-      				 {% endif %}
-               </br>
-               <p>To change a rating, click on the event</p>
-    				</ul>
-  		</div>
+			  {% if user.is_authenticated %}
+				<div><p class="info"> {{ user.first_name }}, here are the ratings you have given: </p></div>
+				<ul>
+				{% for rating in rating_list %}
+					<li>On {{ rating.date.date }}, you gave <a href="{{ rating.event.get_absolute_url }}">{{ rating.event.name }}</a> a {% if rating.rating == -1 %}negative{% elif rating.rating == 1 %}positive{% else %}neutral{% endif %} rating</li>
+				{% endfor %}
+			  </ul>
+        	 {% else %}
+        		<p>You must be logged in to view this page.</p>
+			 {% endif %}
+       </br>
+       <p>To change a rating, click on the event</p>
+		</ul>
+</div>
 
 {% endblock %}

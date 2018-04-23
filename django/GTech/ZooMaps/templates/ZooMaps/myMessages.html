@@ -18,10 +18,10 @@
     				<ul>
 
       				  {% if user.is_authenticated %}
-      					<div><p class="info"> {{ user.first_name }}, here are the messages you posted: </p></div>
+      					<div><p class="info"> {{ user.first_name }}, here are the comments you made: </p></div>
       					<ul>
   							{% for message in message_list %}
-  								<li>On {{ message.date.date }}, you posted this about <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a>:
+  								<li>On {{ message.date.date }}, you commented on <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a> saying:
   								<p><i>{{ message.comment }}</i></p></li>
   							{% endfor %}
   						</ul>
