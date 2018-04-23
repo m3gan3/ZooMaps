@@ -64,6 +64,7 @@
         {% autoescape off %}
           locations = {{ json }};
         {% endautoescape %}
+        console.log(locations)
         locations.map(function(location){
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng(location.fields.latitude, location.fields.longitude),
@@ -71,7 +72,7 @@
             map: map
           });
           var infowindow = new google.maps.InfoWindow({
-            content: "<h3>"+ location.fields.name +"</h3><p>"+ location.fields.description +"</p><a href=\""+ location.fields.get_absolute_url +"\">More Info</a>"
+            content: "<h3>"+ location.fields.name +"</h3><p>"+ location.fields.description +"</p><a href=\"/ZooMaps/event/"+ location.pk +"\">More Info</a>"
           });
           marker.addListener('click', function() {
             infowindow.open(map, marker);
