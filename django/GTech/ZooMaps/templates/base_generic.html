@@ -22,7 +22,7 @@
   		<div class="col-md-1" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Maps</a></div>
   		<div class="col-md-1" id="{% if '/ZooMaps/account/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'account' %}">Account</a></div>
       <div class="col-md-1" id="{% if '/ZooMaps/event/create' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'create-event' %}">Forms</a></div>
-  		<div class="col-md-2" id="nav-item">
+      <div class="col-md-2" id="nav-item">
         <i class="fas fa-sign-in-alt fa-sm"></i>
         {% if user.is_authenticated %}
           <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
@@ -47,8 +47,8 @@
   </body>
   <footer class="footer">
     {% block footer %}
-    <nav  class="navbar-2 footer bg-3">
-      <a href="{% url 'index' %}">&copy;ZooMaps</a>
+    <nav class="navbar-2 footer bg-3">
+      <a href="{% url 'index' %}">&copy;&nbsp;ZooMaps</a>
       <a href="#">Policies</a>
       <a href="{% url 'contact' %}">Contact us</a>
     </nav>

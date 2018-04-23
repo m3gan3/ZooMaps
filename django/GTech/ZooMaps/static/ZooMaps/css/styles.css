@@ -133,6 +133,12 @@ dd {
     padding-right: 30px;
 }
 
+.footer a {
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .footer {
   bottom: 0;
   /* Set the fixed height of the footer here */
