@@ -79,6 +79,8 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
 
 class EventListView(generic.ListView):
     model = Event
@@ -102,6 +104,7 @@ class EventListView(generic.ListView):
     			events = paginator.page(paginator.num_pages)
     		context['event_list'] =events
     		context['paginate'] = True
+    		context['json'] = serialize('json', Event.objects.all())
     	return context
 
 class FutureEventListView(generic.ListView):
@@ -123,6 +126,21 @@ class OngoingEventListView(generic.ListView):
     	list_events = Event.objects.filter(startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))
     	context['ongoing_event_list'] = list_events
     	return context
+    	
+class BestRatedEventListView(generic.ListView):
+    model = RatingEvent
+    paginate_by=4
+    template_name = 'ZooMaps/best_rated_event_list.html'
+    def get_context_data(self, **kwargs):
+    	context = super().get_context_data(**kwargs)
+    	list_events= RatingEvent.objects.values('event__name','event__id').annotate(Avg('rating')).order_by('-rating__avg').filter(rating__avg__gt=0.6)
+    	#list_events = RatingEvent.objects.filter(event=self.object).aggregate(Avg('rating'))
+    	context['best_rated_event_list'] = list_events
+    	return context
+
+
+def get_json ():
+	return (serialize('json', Event.objects.all(), cls=LazyEncoder))
    	
 from django.db.models import Avg   	
 class EventDetailView(generic.DetailView):
