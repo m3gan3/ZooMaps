@@ -40,7 +40,39 @@
   	{% block main %}	
   		<div class="col-md-8 text-center">
   		{% load static %}
-		<img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/>
+				<!-- <img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/> -->
+    <div id="map" style="width:100%;height: 540px;"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: new google.maps.LatLng(42.389567, -72.526570),
+          mapTypeId: 'satellite',
+          mapTypeControl: false,
+          streetViewControl: false,
+          rotateControl: false
+        });
+        {% autoescape off %}
+          locations = {{ json }};
+        {% endautoescape %}
+        locations.map(function(location){
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(location.fields.latitude, location.fields.longitude),
+            label: location.fields.emoji,
+            map: map
+          });
+          var infowindow = new google.maps.InfoWindow({
+            content: "<h3>"+ location.fields.name +"</h3><p>"+ location.fields.description +"</p><a href=\""+ location.fields.get_absolute_url +"\">More Info</a>"
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi9L5nXDSdRXGfJPLbzWxyK966QzpoYdE&callback=initMap">
+    </script>
   		</div>
   		<div class="col-md-1"></div>
   	{% endblock %}
