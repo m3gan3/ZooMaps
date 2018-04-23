@@ -92,6 +92,7 @@ class EventListView(generic.ListView):
     	if query:
     		list_events = Event.objects.filter(Q(description__contains=query)|Q(name__contains=query))
     		context['event_list'] = list_events
+    		context['json'] = serialize('json', list_events)
     	else:
     		list_events = Event.objects.all()
     		paginator = Paginator(list_events, self.paginate_by)
@@ -115,6 +116,7 @@ class FutureEventListView(generic.ListView):
     	context = super().get_context_data(**kwargs)
     	list_events = Event.objects.filter(startDate__gte = (datetime.now()))
     	context['future_event_list'] = list_events
+    	context['json'] = serialize('json', list_events)
     	return context
 
 class OngoingEventListView(generic.ListView):
@@ -125,6 +127,7 @@ class OngoingEventListView(generic.ListView):
     	context = super().get_context_data(**kwargs)
     	list_events = Event.objects.filter(startDate__lte=(datetime.now()), endDate__gte=(datetime.now()))
     	context['ongoing_event_list'] = list_events
+    	context['json'] = serialize('json', list_events)
     	return context
     	
 class BestRatedEventListView(generic.ListView):
@@ -134,8 +137,8 @@ class BestRatedEventListView(generic.ListView):
     def get_context_data(self, **kwargs):
     	context = super().get_context_data(**kwargs)
     	list_events= RatingEvent.objects.values('event__name','event__id').annotate(Avg('rating')).order_by('-rating__avg').filter(rating__avg__gt=0.6)
-    	#list_events = RatingEvent.objects.filter(event=self.object).aggregate(Avg('rating'))
     	context['best_rated_event_list'] = list_events
+    	context['json'] = list_events
     	return context
 
 

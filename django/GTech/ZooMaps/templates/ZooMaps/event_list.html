@@ -9,7 +9,7 @@
         <p class=""><a href="#">Filters</a></p>
         <p class="">&emsp;&emsp;<a href="{% url 'ongoing-events' %}">Ongoing events</a></p>
         <p class="">&emsp;&emsp;<a href="{% url 'future-events' %}">Future events</a></p>
-        <p class="">&emsp;&emsp;<a href="#">Best rated</a></p>
+        <p class="">&emsp;&emsp;<a href="{% url 'best-rated-events' %}">Best rated</a></p>
         <p class="">&emsp;&emsp;<a href="#">More filters...</a></p>
         
         {% if event_list %}
