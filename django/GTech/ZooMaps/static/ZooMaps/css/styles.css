@@ -61,6 +61,10 @@ dt{
 	padding-top:30px;
 }
 
+dd {
+  font-size: 15px;
+}
+
 .title{
 	margin: 35px 10px 30px 2px;
 	font-family: 'comfortaabold';
