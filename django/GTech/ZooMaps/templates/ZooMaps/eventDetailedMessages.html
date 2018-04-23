@@ -5,7 +5,7 @@
 	<p> Here are the different messages posted about the event {{ event.name }} </p>
     <ul>
     	{% for message in message_list|dictsort:"date" %}
-  			<li>On {{ message.date }}, {{ message.username.username }} said: <i>{{ message.comment }}</i></li>
+  			<li>On {{ message.date.date }}, {{ message.username.username }} said: <i>{{ message.comment }}</i></li>
   		{% endfor %}
   	{% else %}
   		<p>There is no message about the event {{ event.name }} yet. </p>

@@ -9,6 +9,7 @@
   <p><strong>Description: </strong> {{ event.description }}</p>  
   <p><strong>Tags: </strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
   <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p> 
+  <p><strong>Average rating: </strong>{{ average_rating.rating__avg|floatformat }}/1</p>
   {% if user.is_authenticated %}
   	<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
   	{% if my_rating %}
@@ -26,6 +27,33 @@
   	{% endif %}</p>
   	
   {% endif %}
+  <div id="map" style="width:100%;height: 540px;"></div>
+  <script>
+    var map;
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: new google.maps.LatLng({{ event.latitude }}, {{ event.longitude }}),
+        mapTypeId: 'satellite',
+        mapTypeControl: false,
+        streetViewControl: false,
+        rotateControl: false
+      });
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng({{ event.latitude }}, {{ event.longitude }}),
+        label: "{{ event.emoji }}",
+        map: map
+      });
+      var infowindow = new google.maps.InfoWindow({
+        content: "<h3>{{ event.name }}</h3><p>{{ event.description }}</p><a href=\"{{ event.get_absolute_url }}\">More Info</a>"
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi9L5nXDSdRXGfJPLbzWxyK966QzpoYdE&callback=initMap">
+  </script>
 </div> 
   
 {% endblock %}
@@ -36,7 +64,7 @@
 	<ul>
 		{% if rating_list %}
 			{% for rating in rating_list %}
-				<li>{{ rating.rating }} by {{ rating.username.username }}</li>
+				<li>{% if rating.rating == -1 %}<span class="negative">negative{% elif rating.rating == 1 %}<span class="positive">positive{% else %}<span class="neutral">neutral{% endif %}</span> rating by {{ rating.username.username }}</li>
 			{% endfor %}
 		{% else %}
 			<li>There is no rating yet for this event.</li>
