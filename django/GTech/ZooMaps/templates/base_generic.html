@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block title %}<title>ZooMaps</title>{% endblock %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- Add additional CSS in static file -->
@@ -21,13 +22,15 @@
   		<div class="col-md-1" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Maps</a></div>
   		<div class="col-md-1" id="{% if '/ZooMaps/account/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'account' %}">Account</a></div>
       <div class="col-md-1" id="{% if '/ZooMaps/event/create' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'create-event' %}">Forms</a></div>
-  		<div class="col-md-1 btn account-btn">
+      <div class="col-md-2" id="nav-item">
+        <i class="fas fa-sign-in-alt fa-sm"></i>
         {% if user.is_authenticated %}
           <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>
         {% else %}
           <a href="{% url 'login'%}?next={{request.path}}">Login</a>
         {% endif %}
 		  </div>
+      <div class="col-md-1"></div>
   	</div>
   	{% endblock %}
   	</header>
@@ -44,8 +47,8 @@
   </body>
   <footer class="footer">
     {% block footer %}
-    <nav  class="navbar-2 footer bg-3">
-      <a href="{% url 'index' %}">&copy;ZooMaps</a>
+    <nav class="navbar-2 footer bg-3">
+      <a href="{% url 'index' %}">&copy;&nbsp;ZooMaps</a>
       <a href="#">Policies</a>
       <a href="{% url 'contact' %}">Contact us</a>
     </nav>

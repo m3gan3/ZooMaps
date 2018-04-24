@@ -3,34 +3,45 @@
   		<div class="col-md-8 main">
   			<dl>
   				<dt>Welcome to ZooMaps, THE application that takes you out!</dt>
-    				<dd>With us, you will finally know what is happening at UMass.</dd>
-    				<dd>ZooMass it's {{ num_user }} users and {{ num_event }} events.</dd>
-    			<dt>Without an account, you can</dt>
-    				<dd>&emsp;&emsp;- look up the events</dd>
-    				<dd>&emsp;&emsp;- look at the map</dd>
-    			<dt>Once connected, you can</dt>
-    				<dd>&emsp;&emsp;- see your agenda</dd>
-    				<dd>&emsp;&emsp;- participate in events</dd>
-    				<dd>&emsp;&emsp;- enter a chat</dd>
-    				<dd>&emsp;&emsp;- create an event</dd>
-  			</dl> 
+    				<dd>Our application provides a social platform in which students and residents of Amherst can find events and activies that they may want to participate in.</dd>
+						</br>
+						<dd>ZooMaps currently has <b>{{ num_user }}</b> users and <b>{{ num_event }}</b> events.</dd>
+					<div class="col-md-6">
+	    			<dt>Non-registered users can...</dt>
+	    				<dd>&emsp;&emsp;- look up events</dd>
+	    				<dd>&emsp;&emsp;- interact with the map</dd>
+					</div>
+					<div class="col-md-6">
+	    			<dt>Register users can...</dt>
+	    				<dd>&emsp;&emsp;- create and view an agenda</dd>
+	    				<dd>&emsp;&emsp;- sign up for events</dd>
+	    				<dd>&emsp;&emsp;- message event hosts</dd>
+							<dd>&emsp;&emsp;- rate attended events</dd>
+	    				<dd>&emsp;&emsp;- create public events</dd>
+					</div>
+  			</dl>
   		</div>
   	{% endblock %}
-  		
+
   	{% block rightbar %}
   		<div class="col-md-3">
-  			<p> Here is what people say about us</p>
+				</br>
+  			<p style="font-size: 20px; font-weight: bold;"> Here's what people are saying about us:</p>
   			<blockquote>
-    			<p>The best application ever made for <abbr title="Universiy of Massachussets">UMass</abbr> students.</p>
-    			<footer>A UMass Student</footer>
-  			</blockquote>
-  			<blockquote>
-  			    <p>My coffee shop has never been that popular. Thank you ZooMaps!</p>
-  			    <footer>An owner</footer>
+  			    <p>My coffee shop has never been so popular. Thank you ZooMaps!</p>
+  			    <footer>Jim Bean</footer>
   			</blockquote>
   			<blockquote>
   			    <p>I like the idea of the map, it is very practical on such a big campus.</p>
-  			    <footer>A UMass Student</footer>
+  			    <footer>Anonymous</footer>
+  			</blockquote>
+				<blockquote>
+  			    <p>Now I can find out where clubs are meeting!</p>
+  			    <footer>Jay Walker</footer>
+  			</blockquote>
+				<blockquote>
+    			<p>The best application ever made for <abbr title="Universiy of Massachussets">UMass</abbr> students.</p>
+    			<footer>Bennie Factor</footer>
   			</blockquote>
   		</div>
   	{% endblock %}

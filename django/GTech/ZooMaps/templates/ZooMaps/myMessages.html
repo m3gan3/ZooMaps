@@ -1,14 +1,27 @@
 {% extends "base_generic.html" %}
+{% block leftbar %}
+  {% if user.is_authenticated %}
+  <div class="col-md-3">
+    <p style="font-weight: bold; font-size: 15px;">Account Navigation</p>
+    <p class="logged"><a href="{% url 'account' %}"><i class="fas fa-user"></i>&nbsp;My account</a></p>
+    <p class="logged"><a href="{% url 'my-future-events' %}"><i class="fas fa-calendar"></i>&nbsp;My future events</a></p>
+    <p class="logged"><a href="{% url 'my-past-events' %}"><i class="fas fa-redo-alt"></i>&nbsp;My past events</a></p>
+    <p class="logged"><a href="{% url 'ratings' %}"><i class="fas fa-star"></i>&nbsp;My ratings</a></p>
+    <p class="logged"><a href="{% url 'messages' %}"><i class="fas fa-comment-alt"></i>&nbsp;My comments</a></p>
+  </div>
+  {% endif %}
+{% endblock %}
+
 {% block main %}
 <div class="col-md-8 main display">
     				<p>
     				<ul>
 
       				  {% if user.is_authenticated %}
-      					<div><p class="info"> {{ user.first_name }}, here are the messages you posted: </p></div>
+      					<div><p class="info"> {{ user.first_name }}, here are the comments you made: </p></div>
       					<ul>
   							{% for message in message_list %}
-  								<li>On {{ message.date.date }}, you posted this about <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a>:
+  								<li>On {{ message.date.date }}, you commented on <a href="{{ message.event.get_absolute_url }}">{{ message.event.name }}</a> saying:
   								<p><i>{{ message.comment }}</i></p></li>
   							{% endfor %}
   						</ul>
