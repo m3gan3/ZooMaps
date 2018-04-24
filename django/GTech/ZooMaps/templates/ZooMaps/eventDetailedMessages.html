@@ -1,22 +1,22 @@
 {% extends "base_generic.html" %}
-{% block main %}
-<div class="col-md-8 main">
-	{% if message_list %}
-	<p> Here are the different messages posted about the event {{ event.name }} </p>
-    <ul>
-    	{% for message in message_list|dictsort:"date" %}
-  			<li>On {{ message.date.date }}, {{ message.username.username }} said: <i>{{ message.comment }}</i></li>
-  		{% endfor %}
-  	{% else %}
-  		<p>There is no message about the event {{ event.name }} yet. </p>
-  	{% endif %}
-	</ul>
-	
-	{% if user.is_authenticated %}
-  		<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
- 	{% endif %}
- 	<br>
- 	<p> Go back to <a href="{% url 'event-detail' event.id %}">{{ event.name }}</a></p>
-</div>
- 
-{% endblock %}
+	{% block main %}
+	<div class="col-md-8 main">
+		{% if message_list %}
+		<p> Here are the different messages posted about the event {{ event.name }} </p>
+	    <ul>
+	    	{% for message in message_list|dictsort:"date" %}
+	  			<li>On {{ message.date.date }}, {{ message.username.username }} said: <i>{{ message.comment }}</i></li>
+	  		{% endfor %}
+	  	{% else %}
+	  		<p>There is no message about the event {{ event.name }} yet. </p>
+	  	{% endif %}
+		</ul>
+
+		{% if user.is_authenticated %}
+	  		<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
+	 	{% endif %}
+	 	<br>
+	 	<p> Go back to <a href="{% url 'event-detail' event.id %}">{{ event.name }}</a></p>
+	</div>
+
+	{% endblock %}

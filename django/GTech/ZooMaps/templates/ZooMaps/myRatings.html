@@ -1,21 +1,34 @@
 {% extends "base_generic.html" %}
-{% block main %}
-<div class="col-md-8 main display">
-    				<ul>
+{% block leftbar %}
+  {% if user.is_authenticated %}
+  <div class="col-md-3">
+    <p style="font-weight: bold; font-size: 15px;">Account Navigation</p>
+    <p class="logged"><a href="{% url 'account' %}"><i class="fas fa-user"></i>&nbsp;My account</a></p>
+    <p class="logged"><a href="{% url 'my-future-events' %}"><i class="fas fa-calendar"></i>&nbsp;My future events</a></p>
+    <p class="logged"><a href="{% url 'my-past-events' %}"><i class="fas fa-redo-alt"></i>&nbsp;My past events</a></p>
+    <p class="logged"><a href="{% url 'ratings' %}"><i class="fas fa-star"></i>&nbsp;My ratings</a></p>
+    <p class="logged"><a href="{% url 'messages' %}"><i class="fas fa-comment-alt"></i>&nbsp;My comments</a></p>
+  </div>
+  {% endif %}
+{% endblock %}
 
-      				  {% if user.is_authenticated %}
-      					<div><p class="info"> {{ user.first_name }}, here are the ratings you have given: </p></div>
-      					<ul>
-  							{% for rating in rating_list %}
-  								<li>On {{ rating.date.date }}, you gave <a href="{{ rating.event.get_absolute_url }}">{{ rating.event.name }}</a> a {% if rating.rating == -1 %}negative{% elif rating.rating == 1 %}positive{% else %}neutral{% endif %} rating</li>
-  							{% endfor %}
-  						  </ul>
-                	 {% else %}
-                		<p>You must be logged in to view this page.</p>
-      				 {% endif %}
-               </br>
-               <p>To change a rating, click on the event</p>
-    				</ul>
-  		</div>
+{% block main %}
+<div class="col-md-6 main display">
+		<ul>
+
+			  {% if user.is_authenticated %}
+				<div><p class="info"> {{ user.first_name }}, here are the ratings you have given: </p></div>
+				<ul>
+				{% for rating in rating_list %}
+					<li>On {{ rating.date.date }}, you gave <a href="{{ rating.event.get_absolute_url }}">{{ rating.event.name }}</a> a {% if rating.rating == -1 %}negative{% elif rating.rating == 1 %}positive{% else %}neutral{% endif %} rating</li>
+				{% endfor %}
+			  </ul>
+        	 {% else %}
+        		<p>You must be logged in to view this page.</p>
+			 {% endif %}
+       </br>
+       <p>To change a rating, click on the event</p>
+		</ul>
+</div>
 
 {% endblock %}

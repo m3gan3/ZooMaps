@@ -2,30 +2,28 @@
 
 {% block main %}
 <div class="col-md-8 main">
-  <h1>Event: {{ event.name }}</h1>
-  <h1>ID: {{ event.id }}</h1>
+  <h1>Event: {{ event.name }} ({{ event.id }})</h1>
   <p><strong>Starts: </strong>{{ event.startDate }}</p>
   <p><strong>Ends: </strong> {{ event.endDate }}</p>
-  <p><strong>Description: </strong> {{ event.description }}</p>  
-  <p><strong>Tags: </strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>  
-  <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p> 
-  {% if average_rating.rating__avg %}  <p><strong>Average rating: </strong>{{ average_rating.rating__avg|floatformat }}/1</p>{% endif %}
+  <p><strong>Description: </strong> {{ event.description }}</p>
+  <p><strong>Tags: </strong> {% for tag in event.tags.all %} {{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  {% if average_rating.rating__avg %}  <p><strong>Average rating: </strong>{% if average_rating.rating__avg == -1 %}<i class="far fa-frown"></i>&nbsp;Negative{% elif average_rating.rating__avg == 1 %}<i class="far fa-smile"></i>&nbsp;Positive{% else %}<i class="far fa-meh"></i>&nbsp;Neutral{% endif %}</p>{% endif %}
   {% if user.is_authenticated %}
-  	<p><button type="button" class="btn-lg"><a href="{% url 'message-event' event.id %}">Message</a></button></p>
+  	<p>This event is accepting comments. <a href="{% url 'message-event' event.id %}"><i class="fas fa-comment-alt"></i>&nbsp;Comment</a></p>
   	{% if my_rating %}
   		{% for rating in my_rating %}
-  			<p>You gave this event a {{ rating.rating }}. <button type="button" class="btn-lg"><a href="{% url 'rate-event' rating.event.id %}">Modify</a></button></p>
+  			<p>You gave this event a {% if rating.rating == -1 %}negative{% elif rating.rating == 1 %}positive{% else %}neutral{% endif %} rating. <a href="{% url 'rate-event' rating.event.id %}"><i class="fas fa-star"></i>&nbsp;Modify</a></p>
   		{% endfor %}
   	{% else %}
-  	<p><button type="button" class="btn-lg"><a href="{% url 'rate-event' event.id %}">Rate</a></button></p>	
+  	   <p>You have not rated this event. <a href="{% url 'rate-event' event.id %}"><i class="far fa-star"></i>&nbsp;Rate</a></p>
   	{% endif %}
-  	<p>{% if user in event.attendees.all %} 
-  		You are going 
-  		<p><button type="button" class="btn-lg"><a href="{% url 'unattend-event' event.id %}">Ungo</a></button></p>
+  	<p>{% if user in event.attendees.all %}
+      You are currently attending. <a href="{% url 'unattend-event' event.id %}"><i class="fas fa-level-down-alt"></i>&nbsp;Unattend</a>
   	{% else %}
-  	<p><button type="button" class="btn-lg"><a href="{% url 'attend-event' event.id %}">Go</a></button></p>
+  	You are not attending. <a href="{% url 'attend-event' event.id %}"><i class="fas fa-level-up-alt"></i>&nbsp;Attend</a></p>
   	{% endif %}</p>
-  	
+
   {% endif %}
   <div id="map" style="width:100%;height: 540px;"></div>
   <script>
@@ -54,32 +52,32 @@
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi9L5nXDSdRXGfJPLbzWxyK966QzpoYdE&callback=initMap">
   </script>
-</div> 
-  
+</div>
+
 {% endblock %}
 
 {% block rightbar %}
-<div class="col-md-2 right">
+<div class="col-md-4 right" style="width: 400px;">
 	<h3><a href="{% url 'event-ratings' object.id %}">Ratings for {{ object.name }}</a></h3>
 	<ul>
 		{% if rating_list %}
 			{% for rating in rating_list %}
-				<li>{% if rating.rating == -1 %}<span class="negative">negative{% elif rating.rating == 1 %}<span class="positive">positive{% else %}<span class="neutral">neutral{% endif %}</span> rating by {{ rating.username.username }}</li>
+				<li style="font-size: 15px;">{% if rating.rating == -1 %}<span class="negative"><i class="far fa-frown"></i>&nbsp;Negative{% elif rating.rating == 1 %}<span class="positive"><i class="far fa-smile"></i>&nbsp;Positive{% else %}<span class="neutral"><i class="far fa-meh"></i>&nbsp;Neutral{% endif %}</span> rating by {{ rating.username.username }}.</li>
 			{% endfor %}
 		{% else %}
-			<li>There is no rating yet for this event.</li>
+			<li>There are no ratings for this event yet.</li>
 		{% endif %}
 	</ul>
-	
-	
-	<h3><a href="{% url 'event-messages' object.id %}">Messages for {{ object.name }}</a></h3>
+
+
+	<h3><a href="{% url 'event-messages' object.id %}">Comments for {{ object.name }}</a></h3>
 	<ul>
 		{% if message_list %}
 			{% for message in message_list %}
-				<li>{{ message.username.username }} says<br> <i> {{ message.comment }} </i></li>
+				<li style="font-size: 15px;"><b>{{ message.username.username }}</b> says: <br> <i> {{ message.comment }} </i></li>
 			{% endfor %}
 		{% else %}
-			<li>There is no message yet for this event.</li>
+			<li>There are no messages for this event yet.</li>
 		{% endif %}
 	</ul>
 </div>
