@@ -91,6 +91,7 @@ if __name__ == '__main__':
     # Specify relative directories for which to lint and run tests from
     LINT_DIRS = [
         'ZooMaps/',
+        'tests/',
     ]
 
     TEST_DIRS = [
