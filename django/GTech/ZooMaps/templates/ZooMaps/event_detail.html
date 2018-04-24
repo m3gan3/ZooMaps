@@ -10,7 +10,7 @@
   <p><strong>Attendees: </strong> {% for attendee in event.attendees.all %} {{ attendee }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
   {% if average_rating.rating__avg %}  <p><strong>Average rating: </strong>{% if average_rating.rating__avg == -1 %}<i class="far fa-frown"></i>&nbsp;Negative{% elif average_rating.rating__avg == 1 %}<i class="far fa-smile"></i>&nbsp;Positive{% else %}<i class="far fa-meh"></i>&nbsp;Neutral{% endif %}</p>{% endif %}
   {% if user.is_authenticated %}
-  	<p>This event is accepting comments. <a href="{% url 'message-event' event.id %}"><i class="fas fa-comment-alt"></i>&nbsp;Message</a></p>
+  	<p>This event is accepting comments. <a href="{% url 'message-event' event.id %}"><i class="fas fa-comment-alt"></i>&nbsp;Comment</a></p>
   	{% if my_rating %}
   		{% for rating in my_rating %}
   			<p>You gave this event a {% if rating.rating == -1 %}negative{% elif rating.rating == 1 %}positive{% else %}neutral{% endif %} rating. <a href="{% url 'rate-event' rating.event.id %}"><i class="fas fa-star"></i>&nbsp;Modify</a></p>
@@ -70,7 +70,7 @@
 	</ul>
 
 
-	<h3><a href="{% url 'event-messages' object.id %}">Messages for {{ object.name }}</a></h3>
+	<h3><a href="{% url 'event-messages' object.id %}">Comments for {{ object.name }}</a></h3>
 	<ul>
 		{% if message_list %}
 			{% for message in message_list %}
