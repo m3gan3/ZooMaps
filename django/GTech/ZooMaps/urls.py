@@ -25,4 +25,5 @@ urlpatterns = [
     path('event/<int:pk>/ratings', views.EventDetailRatingView.as_view(), name='event-ratings'),
     path('events/future', views.FutureEventListView.as_view(), name='future-events'),
     path('events/ongoing', views.OngoingEventListView.as_view(), name='ongoing-events'),
+    path('events/best_rated', views.BestRatedEventListView.as_view(), name='best-rated-events'),
 ]

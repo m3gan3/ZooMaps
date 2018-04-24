@@ -1,20 +1,20 @@
 {% extends "base_generic.html" %}
 	{% block leftbar %}	
   		<div class="col-md-3">
-  			<h2> Here are the future events</h2>
+  			<h2> Here are the best rated events</h2>
 
-  			{% if future_event_list %}
+  			{% if best_rated_event_list %}
     				<ul>
 
-      					{% for event in future_event_list %}
+      					{% for event in best_rated_event_list %}
       					<li>
-        					<a href="{{ event.get_absolute_url }}"> {{ event.name }}</a> ({{event.startDate}})
+        					<a href="{% url 'event-detail' event.event__id %}"> {{ event.event__name }}</a> ({{event.rating__avg|floatformat}})
       					</li>
       					{% endfor %}
 
     				</ul>
     			{% else %}
-      				<p>There is no event coming up.</p>
+      				<p>There is no event going on at the moment.</p>
     			{% endif %}
   			{% block pagination %}
   						{% if paginate %}
@@ -35,13 +35,11 @@
 		{% endblock %}
 		<p class="">&emsp;&emsp;<a href="{% url 'events' %}">Another search</a></p>
   		</div>
-  		
   	{% endblock %} 
   	{% block main %}	
   		<div class="col-md-8 text-center">
-  		
   		{% load static %}
-		<!-- <img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/> -->
+				<!-- <img src="{% static 'ZooMaps/images/map.png' %}" alt="Map" style="width:555px;height:540px;"/> -->
     <div id="map" style="width:100%;height: 540px;"></div>
     <script>
       var map;
@@ -59,12 +57,12 @@
         {% endautoescape %}
         locations.map(function(location){
           var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(location.fields.latitude, location.fields.longitude),
-            label: location.fields.emoji,
+            position: new google.maps.LatLng(location.event__latitude, location.event__longitude),
+            label: location.event__emoji,
             map: map
           });
           var infowindow = new google.maps.InfoWindow({
-            content: "<h3>"+ location.fields.name +"</h3><p>"+ location.fields.description +"</p><a href=\""+ location.fields.get_absolute_url +"\">More Info</a>"
+            content: `<h3>`+ location.event__name +`</h3> <p>`+ location.event__description +`</p><a href="/ZooMaps/event/`+location.event__id+`">More Info</a>`
           });
           marker.addListener('click', function() {
             infowindow.open(map, marker);
