@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.urls import include
 from django.views.generic import TemplateView
+from django.conf.urls import url
 
 urlpatterns = [
 	path('', views.index, name='index'),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('events/future', views.FutureEventListView.as_view(), name='future-events'),
     path('events/ongoing', views.OngoingEventListView.as_view(), name='ongoing-events'),
     path('events/best_rated', views.BestRatedEventListView.as_view(), name='best-rated-events'),
+    path('logon/', views.logOn, name='log-on'),
 ]

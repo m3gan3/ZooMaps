@@ -310,3 +310,25 @@ def unattend_event(request, pk):
     	form = UnAttendEventForm(initial={})
 
     return render(request, 'ZooMaps/unattend.html', {'form': form, 'event':event})
+
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from .forms import LogOnForm
+from django.contrib.auth import logout
+
+def logOn(request):
+    logout(request)
+    if request.method == 'POST':
+        form = LogOnForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/ZooMaps/account/')
+    else:
+        form = LogOnForm()
+    return render(request, 'log_on.html', {'form': form})

@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block main %}
+  <h2>Welcome to ZooMaps.</h2>
+  <h2>Log on</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: blac">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Create account</button>
+  </form>
+{% endblock %}
