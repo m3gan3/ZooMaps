@@ -2,7 +2,7 @@
 
 {% block main %}
 <div class="col-md-8 main">
-  <h1>Event: {{ event.name }} ({{ event.id }})</h1>
+  <h1>Event: {{ event.name }}</h1>
   <p><strong>Starts: </strong>{{ event.startDate }}</p>
   <p><strong>Ends: </strong> {{ event.endDate }}</p>
   <p><strong>Description: </strong> {{ event.description }}</p>
@@ -18,10 +18,12 @@
   	{% else %}
   	   <p>You have not rated this event. <a href="{% url 'rate-event' event.id %}"><i class="far fa-star"></i>&nbsp;Rate</a></p>
   	{% endif %}
-  	<p>{% if user in event.attendees.all %}
-      You are currently attending. <a href="{% url 'unattend-event' event.id %}"><i class="fas fa-level-down-alt"></i>&nbsp;Unattend</a>
-  	{% else %}
-  	You are not attending. <a href="{% url 'attend-event' event.id %}"><i class="fas fa-level-up-alt"></i>&nbsp;Attend</a></p>
+  	<p>{% if future %}
+  		{% if user in event.attendees.all %}
+      		You are currently attending. <a href="{% url 'unattend-event' event.id %}"><i class="fas fa-level-down-alt"></i>&nbsp;Unattend</a>
+  		{% else %}
+  			You are not attending. <a href="{% url 'attend-event' event.id %}"><i class="fas fa-level-up-alt"></i>&nbsp;Attend</a></p>
+  		{% endif %}
   	{% endif %}</p>
 
   {% endif %}

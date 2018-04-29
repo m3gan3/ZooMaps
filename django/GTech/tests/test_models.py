@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ZooMaps.models import Tag, UserModel, User, Event, RatingEvent, MessageEvent
+from ZooMaps.models import Tag, User, Event, RatingEvent, MessageEvent
 import random
 import unittest
 from hypothesis import given, example
@@ -49,18 +49,6 @@ class TagTestCase(TestCase):
                 Tag.objects.create(tagName=invalid_tag_name)
             except Exception as e:
                 raise e
-
-
-class UserModelTestCase(TestCase):
-    def setUp(self):
-        # TODO: Create list of users with random names
-        pass
-
-    @given(random_users=st.lists(models(UserModel)))
-    def test_all_users_return_usernames(self, random_users):
-        for random_user in random_users:
-            self.assertEquals(random_user.username, str(random_user))
-
 
 class EventTestCase(TestCase):
 

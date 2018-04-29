@@ -139,10 +139,8 @@ class BestRatedEventListView(generic.ListView):
     	list_events= RatingEvent.objects.values('event__name','event__emoji','event__id', 'event__longitude','event__latitude','event__description').annotate(Avg('rating')).order_by('-rating__avg').filter(rating__avg__gt=0.6)
     	context['best_rated_event_list'] = list_events
     	
-    	#context['json'] =  serialize("json", list_events, fields=('event__name','event__id'))
     	context['json'] = list(list_events)
     	return context
-
 
 def get_json ():
 	return (serialize('json', Event.objects.all(), cls=LazyEncoder))
@@ -158,6 +156,8 @@ class EventDetailView(generic.DetailView):
 		context['average_rating'] = RatingEvent.objects.filter(event=self.object).aggregate(Avg('rating'))
 		if self.request.user.is_authenticated:
 			context['my_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user)
+		if self.object.date_in_the_future():
+			context['future'] = True
 		return context
 
 class EventDetailMessageView(generic.DetailView):
@@ -282,7 +282,6 @@ def attend_event(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
     	form = AttendEventForm(initial={})
-
     return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
 
 @login_required
@@ -310,3 +309,25 @@ def unattend_event(request, pk):
     	form = UnAttendEventForm(initial={})
 
     return render(request, 'ZooMaps/unattend.html', {'form': form, 'event':event})
+
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from .forms import LogOnForm
+from django.contrib.auth import logout
+
+def logOn(request):
+    logout(request)
+    if request.method == 'POST':
+        form = LogOnForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/ZooMaps/account/')
+    else:
+        form = LogOnForm()
+    return render(request, 'log_on.html', {'form': form})
