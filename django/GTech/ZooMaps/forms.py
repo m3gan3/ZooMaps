@@ -64,8 +64,11 @@ from django.contrib.auth.models import User
 class LogOnForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False)
     last_name = forms.CharField(max_length=30, required=False)
-    address_email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-
+    email = forms.EmailField(max_length=254, required=True, help_text='Required. Enter a valid email address.')
+    password1 = forms.CharField(max_length=254, widget=forms.PasswordInput, help_text='Your password should not be too similar to your other personal information. It has to contains 8 characters at least and cannot be entirely numeric.')
+    password2 = forms.CharField(max_length=254, widget=forms.PasswordInput, help_text='Enter the same password as previously.')
+    
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'address_email', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        
