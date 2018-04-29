@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
 class Tag(models.Model):
@@ -46,7 +47,8 @@ class Event(models.Model):
         """
         Boolean to determine whether the Event object is in the future.
         """
-        return self.date>date.now()
+        now = timezone.now()
+        return self.endDate>now
 
     def get_absolute_url(self):
         """

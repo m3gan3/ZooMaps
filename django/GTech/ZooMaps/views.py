@@ -142,7 +142,6 @@ class BestRatedEventListView(generic.ListView):
     	context['json'] = list(list_events)
     	return context
 
-
 def get_json ():
 	return (serialize('json', Event.objects.all(), cls=LazyEncoder))
    	
@@ -157,6 +156,8 @@ class EventDetailView(generic.DetailView):
 		context['average_rating'] = RatingEvent.objects.filter(event=self.object).aggregate(Avg('rating'))
 		if self.request.user.is_authenticated:
 			context['my_rating'] = RatingEvent.objects.filter(event=self.object,username=self.request.user)
+		if self.object.date_in_the_future():
+			context['future'] = True
 		return context
 
 class EventDetailMessageView(generic.DetailView):
