@@ -282,7 +282,6 @@ def attend_event(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
     	form = AttendEventForm(initial={})
-
     return render(request, 'ZooMaps/attend.html', {'form': form, 'event':event})
 
 @login_required
