@@ -139,7 +139,6 @@ class BestRatedEventListView(generic.ListView):
     	list_events= RatingEvent.objects.values('event__name','event__emoji','event__id', 'event__longitude','event__latitude','event__description').annotate(Avg('rating')).order_by('-rating__avg').filter(rating__avg__gt=0.6)
     	context['best_rated_event_list'] = list_events
     	
-    	#context['json'] =  serialize("json", list_events, fields=('event__name','event__id'))
     	context['json'] = list(list_events)
     	return context
 

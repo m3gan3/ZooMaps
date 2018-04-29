@@ -7,36 +7,19 @@ from datetime import datetime
 # Create your models here.
 class Tag(models.Model):
     """
-    Model representing a book genre (e.g. Science Fiction, Non Fiction).
+    Model representing an event Tag (e.g. Family, Friend, Music).
     """
     tagName = models.CharField(max_length=200, help_text="Enter a tag")
 
     def __str__(self):
         """
-        String for representing the Model object (in Admin site etc.)
+        String for representing the Tag object (in Admin site etc.)
         """
         return self.tagName
 
-class UserModel(models.Model):
-    """
-    A typical class defining a model, derived from the Model class.
-    """
-
-    # Fields
-    #userbis= models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    username = models.CharField(max_length=20, help_text="Enter your username")
-    password = models.CharField(max_length=20, help_text="Enter your password", default = "")
-    emailAddress = models.CharField(max_length=20, help_text="Enter your email address",default = "")
-    first_name = models.CharField(max_length=20, help_text="Enter your first name")
-    def __str__(self):
-        """
-        String for representing the MyModelName object (in Admin site etc.)
-        """
-        return self.username
-
 class Event(models.Model):
     """
-    A typical class defining a model, derived from the Model class.
+    Model representing an Event.
     """
 
     # Fields
@@ -55,19 +38,25 @@ class Event(models.Model):
 
     def __str__(self):
         """
-        String for representing the MyModelName object (in Admin site etc.)
+        String for representing the Event object (in Admin site etc.)
         """
         return self.name
+        
+    def date_in_the_future(self):
+        """
+        Boolean to determine whether the Event object is in the future.
+        """
+        return self.date>date.now()
 
     def get_absolute_url(self):
         """
-        Returns the url to access a detail record for this book.
+        Returns the url to access a detail record for this event.
         """
         return reverse('event-detail', args=[str(self.id)])
 
 class RatingEvent(models.Model):
     """
-    A typical class defining a model, derived from the Model class.
+    Model representing an event Rating from a User.
     """
 
     # Fields
@@ -78,13 +67,13 @@ class RatingEvent(models.Model):
 
     def __str__(self):
         """
-        String for representing the MyModelName object (in Admin site etc.)
+        String for representing the RatingEvent object (in Admin site etc.)
         """
         return self.event.name
 
 class MessageEvent(models.Model):
     """
-    A typical class defining a model, derived from the Model class.
+    Model representing an event Message from a User.
     """
 
     # Fields
@@ -95,6 +84,6 @@ class MessageEvent(models.Model):
 
     def __str__(self):
         """
-        String for representing the MyModelName object (in Admin site etc.)
+        String for representing the MessageEvent object (in Admin site etc.)
         """
         return self.event.name
