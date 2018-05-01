@@ -19,9 +19,9 @@
   	<div class="container-fluid bg-1">
   		<div class="col-md-3 title" id="title">ZooMaps</div>
   		<div class="col-md-1" id="{% if '/ZooMaps/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'index' %}">About</a></div>
-  		<div class="col-md-1" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Maps</a></div>
+  		<div class="col-md-1" id="{% if '/ZooMaps/events/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'events' %}">Map</a></div>
   		<div class="col-md-1" id="{% if '/ZooMaps/account/' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'account' %}">Account</a></div>
-      <div class="col-md-1" id="{% if '/ZooMaps/event/create' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'create-event' %}">Forms</a></div>
+      <div class="col-md-1" id="{% if '/ZooMaps/event/create' == request.path %}nav-selected{% else %}nav-item{% endif %}"><a href="{% url 'create-event' %}">Create Event</a></div>
       <div class="col-md-2" id="nav-item">
         <i class="fas fa-sign-in-alt fa-sm"></i>
         {% if user.is_authenticated %}
