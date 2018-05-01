@@ -4,7 +4,7 @@
 
 {% block main %}
   <h1>Welcome to ZooMaps.</h1>
-  <h2>If you are a new user, log on.</h2>
+  <h2>If you are a new user, sign up.</h2>
   <p> Already have an account? <a href="{% url 'login'%}?next={{request.path}}"> Log in </a></p>
   <form method="post">
     {% csrf_token %}
